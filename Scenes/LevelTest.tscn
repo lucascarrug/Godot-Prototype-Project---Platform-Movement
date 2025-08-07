@@ -1,0 +1,68 @@
+[gd_scene load_steps=4 format=3 uid="uid://igo4wxha8pcc"]
+
+[ext_resource type="PackedScene" uid="uid://vt21yl1tn0ce" path="res://Scenes/Player.tscn" id="1_1lf85"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1lf85"]
+size = Vector2(237, 34.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m65f8"]
+size = Vector2(283, 36)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_1lf85")]
+position = Vector2(217, 179)
+
+[node name="Floor" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+position = Vector2(117.5, 259)
+shape = SubResource("RectangleShape2D_1lf85")
+
+[node name="Panel" type="Panel" parent="Floor"]
+offset_left = 2.0
+offset_top = 241.0
+offset_right = 238.0
+offset_bottom = 278.0
+
+[node name="Floor2" type="StaticBody2D" parent="."]
+position = Vector2(446, -81)
+
+[node name="Panel" type="Panel" parent="Floor2"]
+offset_left = -51.0
+offset_top = 321.0
+offset_right = 233.0
+offset_bottom = 358.0
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor2"]
+position = Vector2(91.5, 340)
+shape = SubResource("RectangleShape2D_m65f8")
+
+[node name="Floor3" type="StaticBody2D" parent="."]
+position = Vector2(916, -99)
+
+[node name="Panel" type="Panel" parent="Floor3"]
+offset_left = -51.0
+offset_top = 321.0
+offset_right = 233.0
+offset_bottom = 358.0
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor3"]
+position = Vector2(91.5, 340)
+shape = SubResource("RectangleShape2D_m65f8")
+
+[node name="Floor4" type="StaticBody2D" parent="."]
+position = Vector2(1360, -69)
+
+[node name="Panel" type="Panel" parent="Floor4"]
+offset_left = -51.0
+offset_top = 321.0
+offset_right = 233.0
+offset_bottom = 358.0
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor4"]
+position = Vector2(91.5, 340)
+shape = SubResource("RectangleShape2D_m65f8")
