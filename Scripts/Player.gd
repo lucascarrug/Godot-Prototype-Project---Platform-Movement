@@ -8,11 +8,14 @@ var stats: PlayerStats = PlayerStats.new()
 
 # Player stats.
 @export_group("Player Stats")
-@export var jump_distance: float = stats.JUMP_DISTANCE
-@export var fall_speed_increase: float = stats.FALL_SPEED_INCREASE
-@export var jump_peak_time: float = stats.JUMP_PEAK_TIME
-@export var jump_height: float = stats.JUMP_HEIGHT
-@export var jump_height_decrease: float = stats.JUMP_HEIGHT_DECREASE
+@export var jump_distance := stats.JUMP_DISTANCE
+@export var fall_speed_increase := stats.FALL_SPEED_INCREASE
+@export var jump_peak_time := stats.JUMP_PEAK_TIME
+@export var jump_height := stats.JUMP_HEIGHT
+@export var jump_height_decrease := stats.JUMP_HEIGHT_DECREASE
+@export var dash_force := stats.DASH_FORCE
+@export var dash_time := stats.DASH_TIME
+@export var dash_recover_time := stats.DASH_RECOVER_TIME
 
 # Nodes.
 @onready var animated_sprite := $AnimatedSprite2D
@@ -30,8 +33,12 @@ var move_speed: float
 var jump_buffer := false
 var coyote_time_jump := true
 var was_on_floor := true
+
+# Fancy movement control variables.
 var is_dashing := false
 var can_dash := true
+
+# General control variables.
 var last_direction := 0.0
 var last_point := 0.0
 
@@ -41,16 +48,22 @@ var _is_facing_right := true
 ##### METHODS #####
 
 func _ready() -> void:
+	# Set basic physics.
 	gravity = (2 * jump_height) / (jump_peak_time * jump_peak_time)
 	jump_speed = gravity * jump_peak_time
 	move_speed = jump_distance / (2 * jump_peak_time)
 	
+	# Set timers.
+	dash_timer.wait_time = dash_time
+	dash_recover_timer.wait_time = dash_recover_time
+	
 func _physics_process(delta: float) -> void:
-	## Coyote Time
+	## Coyote Time.
 	if was_on_floor and not is_on_floor():
 		coyote_time_start()
 	was_on_floor = is_on_floor()
 	
+	## General.
 	calculate_x_displacement()
 
 ##### BASIC PHYSICS #####
@@ -92,15 +105,13 @@ func on_jump_released() -> void:
 	velocity.y /= jump_height_decrease
 
 func dash() -> void:
-	print("is_dashing: ", not is_dashing, " can_dash: ", can_dash)
-	
 	if is_dashing or not can_dash:
 		return
 		
 	is_dashing = true
 	can_dash = false
 	animated_sprite.play("dashing")
-	velocity.x = move_speed * last_direction * 3
+	velocity.x = move_speed * last_direction * dash_force
 	velocity.y = 0
 	dash_timer.start()
 	dash_recover_timer.start()
@@ -111,7 +122,6 @@ func calculate_x_displacement() -> void:
 		last_direction = current_point - last_point
 		last_direction /= abs(last_direction)
 	last_point = position.x
-	
 	
 ##### SIGNALS #####
 
@@ -130,7 +140,6 @@ func _on_dash_timer_timeout() -> void:
 func _on_dash_recover_timer_timeout() -> void:
 	can_dash = true
 	print("Recovered from dash.")
-
 
 ##### IS_STATE #####
 

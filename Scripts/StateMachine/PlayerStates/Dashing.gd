@@ -4,6 +4,7 @@ func start():
 	player.dash()
 
 func on_physics_process(delta):
+	# Checks.
 	if not player.is_dashing:
 		if player.is_falling():
 			state_machine.change_to(player.states.FALLING)
@@ -13,9 +14,9 @@ func on_physics_process(delta):
 			state_machine.change_to(player.states.RUNNING)
 		else:
 			state_machine.change_to(player.states.IDLE)
-
+			
+	# Apply player state physics.
 	player.move_and_slide()
-	
 	
 func end():
 	pass

@@ -12,8 +12,11 @@ size = Vector2(283, 36)
 
 [node name="Player" parent="." instance=ExtResource("1_1lf85")]
 position = Vector2(217, 179)
-jump_distance = 300.0
-jump_height = 50.0
+jump_distance = 200.0
+jump_height = 100
+dash_force = 10.0
+dash_time = 0.2
+dash_recover_time = 1.0
 
 [node name="Floor" type="StaticBody2D" parent="."]
 
