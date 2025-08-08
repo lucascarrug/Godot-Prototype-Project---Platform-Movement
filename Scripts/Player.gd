@@ -37,7 +37,8 @@ var was_on_floor := true
 
 # Fancy movement control variables.
 var is_dashing := false
-var can_dash := true
+var can_recover_dash := true
+var can_dash := false
 
 # General control variables.
 var last_direction := 0.0
@@ -68,6 +69,9 @@ func _physics_process(delta: float) -> void:
 	## Air jump.
 	if is_on_floor():
 		current_air_jumps = 0
+		
+		if can_recover_dash:
+			can_dash = true
 	
 	## General.
 	calculate_x_displacement()
@@ -121,6 +125,7 @@ func dash() -> void:
 		return
 		
 	is_dashing = true
+	can_recover_dash = false
 	can_dash = false
 	animated_sprite.play("dashing")
 	velocity.x = move_speed * last_direction * dash_force
@@ -150,7 +155,7 @@ func _on_dash_timer_timeout() -> void:
 	print("timeout")
 	
 func _on_dash_recover_timer_timeout() -> void:
-	can_dash = true
+	can_recover_dash = true
 	print("Recovered from dash.")
 
 ##### IS_STATE #####
