@@ -25,3 +25,5 @@ func on_physics_process(delta):
 func on_input(event):
 	if Input.is_action_pressed(player.controls.RIGHT) or Input.is_action_pressed(player.controls.LEFT):
 		state_machine.change_to(player.states.RUNNING)
+	elif Input.is_action_just_pressed(player.controls.DASH):
+		state_machine.change_to(player.states.DASHING)

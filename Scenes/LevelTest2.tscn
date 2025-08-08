@@ -13,9 +13,6 @@ size = Vector2(283, 36)
 [node name="Player" parent="." instance=ExtResource("1_e4hyt")]
 position = Vector2(330, -558)
 jump_distance = 600.0
-jump_peak_time = 0.6
-jump_height = 200.0
-jump_height_decrease = 4.0
 
 [node name="Floor" type="StaticBody2D" parent="."]
 

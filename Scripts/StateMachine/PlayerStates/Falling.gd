@@ -1,13 +1,9 @@
 extends PlayerStateBase
 
-var is_falling_animation_played := false
+func start():
+	player.animated_sprite.play("falling")
 
 func on_physics_process(delta):
-	# Play player animation once.
-	if not is_falling_animation_played:
-		player.animated_sprite.play("falling")
-		is_falling_animation_played = true
-		
 	# Apply player state physics.
 	player.move_x()
 	player.flip()
@@ -28,4 +24,10 @@ func on_physics_process(delta):
 		state_machine.change_to(player.states.JUMPING)
 
 func end():
-	is_falling_animation_played = false
+	pass
+
+func on_input(event):
+	if Input.is_action_just_pressed(player.controls.DASH):
+		state_machine.change_to(player.states.DASHING)
+	if Input.is_action_just_pressed("reset"):
+		player.position = Vector2(0,0)

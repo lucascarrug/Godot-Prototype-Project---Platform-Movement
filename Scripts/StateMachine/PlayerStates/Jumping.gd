@@ -19,3 +19,7 @@ func on_physics_process(delta):
 		
 	if not Input.is_action_pressed(player.controls.JUMP):
 		player.on_jump_released()
+
+func on_input(event):
+	if Input.is_action_just_pressed(player.controls.DASH):
+		state_machine.change_to(player.states.DASHING)

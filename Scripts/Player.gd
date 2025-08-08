@@ -18,8 +18,8 @@ var stats: PlayerStats = PlayerStats.new()
 @onready var animated_sprite := $AnimatedSprite2D
 @onready var buffer_jump_timer := $BufferJumpTimer
 @onready var coyote_time_timer := $CoyoteTimeTimer
-@onready var debug_label := $DebugLabel
-@onready var debug_label2 := $DebugLabel2
+@onready var dash_timer := $DashTimer
+@onready var dash_recover_timer := $DashRecoverTimer
 
 # Basic physics variables.
 var gravity: float
@@ -30,6 +30,10 @@ var move_speed: float
 var jump_buffer := false
 var coyote_time_jump := true
 var was_on_floor := true
+var is_dashing := false
+var can_dash := true
+var last_direction := 0.0
+var last_point := 0.0
 
 # Animation variables.
 var _is_facing_right := true
@@ -42,10 +46,12 @@ func _ready() -> void:
 	move_speed = jump_distance / (2 * jump_peak_time)
 	
 func _physics_process(delta: float) -> void:
+	## Coyote Time
 	if was_on_floor and not is_on_floor():
 		coyote_time_start()
 	was_on_floor = is_on_floor()
-
+	
+	calculate_x_displacement()
 
 ##### BASIC PHYSICS #####
 
@@ -67,7 +73,6 @@ func jump() -> void:
 		animated_sprite.play("jumping")
 		velocity.y = -jump_speed
 		jump_buffer = false
-		debug_label.text = "FALSE"
 
 func handle_gravity(delta) -> void:
 	if not is_on_floor():
@@ -78,25 +83,54 @@ func handle_gravity(delta) -> void:
 func jump_buffer_start() -> void:
 	buffer_jump_timer.start()
 	jump_buffer = true
-	debug_label.text = "TRUE"
 	
 func coyote_time_start() -> void:
 	coyote_time_timer.start()
 	coyote_time_jump = true
-	debug_label2.text = "YES"
 	
 func on_jump_released() -> void:
 	velocity.y /= jump_height_decrease
 
+func dash() -> void:
+	print("is_dashing: ", not is_dashing, " can_dash: ", can_dash)
+	
+	if is_dashing or not can_dash:
+		return
+		
+	is_dashing = true
+	can_dash = false
+	animated_sprite.play("dashing")
+	velocity.x = move_speed * last_direction * 3
+	velocity.y = 0
+	dash_timer.start()
+	dash_recover_timer.start()
+
+func calculate_x_displacement() -> void:
+	if last_point != position.x:
+		var current_point = position.x
+		last_direction = current_point - last_point
+		last_direction /= abs(last_direction)
+	last_point = position.x
+	
+	
 ##### SIGNALS #####
 
 func _on_buffer_jump_timer_timeout() -> void:
 	jump_buffer = false
-	debug_label.text = "FALSE"
 
 func _on_coyote_time_timer_timeout() -> void:
-	debug_label2.text = "NO"
 	coyote_time_jump = false
+	
+func _on_dash_timer_timeout() -> void:
+	velocity.x = 0
+	move_and_slide()
+	is_dashing = false
+	print("timeout")
+	
+func _on_dash_recover_timer_timeout() -> void:
+	can_dash = true
+	print("Recovered from dash.")
+
 
 ##### IS_STATE #####
 
@@ -110,4 +144,4 @@ func is_jumping() -> bool:
 	return velocity.y < 0
 
 func is_falling() -> bool:
-	return velocity.y > 0
+	return velocity.y >= 0 and not is_on_floor()
