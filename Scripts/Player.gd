@@ -16,6 +16,7 @@ var stats: PlayerStats = PlayerStats.new()
 @export var dash_force := stats.DASH_FORCE
 @export var dash_time := stats.DASH_TIME
 @export var dash_recover_time := stats.DASH_RECOVER_TIME
+@export var max_air_jumps := stats.MAX_AIR_JUMPS
 
 # Nodes.
 @onready var animated_sprite := $AnimatedSprite2D
@@ -41,6 +42,7 @@ var can_dash := true
 # General control variables.
 var last_direction := 0.0
 var last_point := 0.0
+var current_air_jumps := 0
 
 # Animation variables.
 var _is_facing_right := true
@@ -63,6 +65,10 @@ func _physics_process(delta: float) -> void:
 		coyote_time_start()
 	was_on_floor = is_on_floor()
 	
+	## Air jump.
+	if is_on_floor():
+		current_air_jumps = 0
+	
 	## General.
 	calculate_x_displacement()
 
@@ -82,10 +88,16 @@ func flip() -> void:
 		_is_facing_right = not _is_facing_right
 
 func jump() -> void:
-	if (is_on_floor() or coyote_time_jump) and jump_buffer:
-		animated_sprite.play("jumping")
-		velocity.y = -jump_speed
-		jump_buffer = false
+	if (current_air_jumps < max_air_jumps or coyote_time_jump) and jump_buffer:
+		if is_on_floor():
+			animated_sprite.play("jumping")
+			velocity.y = -jump_speed
+			jump_buffer = false
+		else:
+			animated_sprite.play("jumping")
+			velocity.y = -jump_speed
+			jump_buffer = false
+			current_air_jumps += 1
 
 func handle_gravity(delta) -> void:
 	if not is_on_floor():

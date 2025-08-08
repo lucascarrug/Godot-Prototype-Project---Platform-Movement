@@ -19,6 +19,7 @@ func on_physics_process(delta):
 	
 	if Input.is_action_just_pressed(player.controls.JUMP):
 		player.jump_buffer_start()
+		state_machine.change_to(player.states.JUMPING)
 		
 	if not player.coyote_time_timer.is_stopped() and Input.is_action_just_pressed(player.controls.JUMP):
 		state_machine.change_to(player.states.JUMPING)
@@ -29,5 +30,5 @@ func end():
 func on_input(event):
 	if Input.is_action_just_pressed(player.controls.DASH):
 		state_machine.change_to(player.states.DASHING)
-	if Input.is_action_just_pressed("reset"):
+	elif Input.is_action_just_pressed("reset"):
 		player.position = Vector2(0,0)

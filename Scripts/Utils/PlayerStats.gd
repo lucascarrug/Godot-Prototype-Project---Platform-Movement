@@ -11,3 +11,4 @@ const MAX_FALL_SPEED := 20.0
 const DASH_FORCE := 3.0
 const DASH_TIME := 0.1
 const DASH_RECOVER_TIME := 0.5
+const MAX_AIR_JUMPS := 1
