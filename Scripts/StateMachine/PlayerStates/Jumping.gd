@@ -19,6 +19,9 @@ func on_physics_process(delta):
 		
 	if not Input.is_action_pressed(player.controls.JUMP):
 		player.on_jump_released()
+	
+	if player.is_on_wall_only():
+		state_machine.change_to(player.states.WALLSLIDING)
 
 func on_input(event):
 	if Input.is_action_just_pressed(player.controls.DASH):

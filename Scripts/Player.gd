@@ -17,13 +17,21 @@ var stats: PlayerStats = PlayerStats.new()
 @export var dash_time := stats.DASH_TIME
 @export var dash_recover_time := stats.DASH_RECOVER_TIME
 @export var max_air_jumps := stats.MAX_AIR_JUMPS
+@export var walljump_pushback := 2
 
-# Nodes.
+# Animation.
 @onready var animated_sprite := $AnimatedSprite2D
-@onready var buffer_jump_timer := $BufferJumpTimer
-@onready var coyote_time_timer := $CoyoteTimeTimer
-@onready var dash_timer := $DashTimer
-@onready var dash_recover_timer := $DashRecoverTimer
+
+# Timers.
+@onready var buffer_jump_timer := $Timers/BufferJumpTimer
+@onready var coyote_time_timer := $Timers/CoyoteTimeTimer
+@onready var dash_timer := $Timers/DashTimer
+@onready var dash_recover_timer := $Timers/DashRecoverTimer
+
+# Raycasts.
+@onready var raycast_right := $RayCasts/Right
+@onready var raycast_left := $RayCasts/Left
+
 
 # Basic physics variables.
 var gravity: float
@@ -39,6 +47,7 @@ var was_on_floor := true
 var is_dashing := false
 var can_recover_dash := true
 var can_dash := false
+var is_walljumping := false
 
 # General control variables.
 var last_direction := 0.0
@@ -67,6 +76,9 @@ func _physics_process(delta: float) -> void:
 	was_on_floor = is_on_floor()
 	
 	## Air jump.
+	if is_on_wall():
+		current_air_jumps = 0
+	
 	if is_on_floor():
 		current_air_jumps = 0
 		
@@ -83,26 +95,31 @@ func idle() -> void:
 	move_x()
 
 func move_x() -> void:
+	if is_walljumping:
+		return
 	var horizontal_direction = Input.get_action_strength(controls.RIGHT) - Input.get_action_strength(controls.LEFT)
 	velocity.x = move_speed * horizontal_direction
 
 func flip() -> void:
 	if (_is_facing_right and velocity.x < 0) or (not _is_facing_right and velocity.x > 0):
 		scale.x *= -1
+		walljump_pushback *= -1
 		_is_facing_right = not _is_facing_right
 
 func jump() -> void:
 	if (current_air_jumps < max_air_jumps or coyote_time_jump) and jump_buffer:
+		animated_sprite.play("jumping")
+		jump_buffer = false
+		
 		if is_on_floor():
-			animated_sprite.play("jumping")
 			velocity.y = -jump_speed
-			jump_buffer = false
-		else:
-			animated_sprite.play("jumping")
-			velocity.y = -jump_speed
-			jump_buffer = false
+		elif is_on_wall_only():
+			walljump()
 			current_air_jumps += 1
-
+		else:
+			velocity.y = -jump_speed
+			if coyote_time_timer.is_stopped(): current_air_jumps += 1
+		
 func handle_gravity(delta) -> void:
 	if not is_on_floor():
 		velocity.y = min(velocity.y + gravity * delta, velocity.y + stats.MAX_FALL_SPEED)
@@ -128,8 +145,7 @@ func dash() -> void:
 	can_recover_dash = false
 	can_dash = false
 	animated_sprite.play("dashing")
-	velocity.x = move_speed * last_direction * dash_force
-	velocity.y = 0
+	velocity = Vector2(move_speed * last_direction * dash_force, 0)
 	dash_timer.start()
 	dash_recover_timer.start()
 
@@ -139,7 +155,23 @@ func calculate_x_displacement() -> void:
 		last_direction = current_point - last_point
 		last_direction /= abs(last_direction)
 	last_point = position.x
-	
+
+func wall_slide_gravity(delta) -> void:
+	if is_jumping():
+		handle_gravity(delta)
+	if is_falling():
+		velocity.y = min(velocity.y + gravity * delta, velocity.y + stats.MAX_FALL_SPEED / 7)
+
+func walljump() -> void:
+	if raycast_left.is_colliding():
+		velocity = Vector2(-move_speed * walljump_pushback, -jump_speed)
+	elif raycast_right.is_colliding():
+		velocity = Vector2(-move_speed * walljump_pushback, -jump_speed)
+		
+	is_walljumping = true
+	await get_tree().create_timer(0.12).timeout
+	is_walljumping = false
+
 ##### SIGNALS #####
 
 func _on_buffer_jump_timer_timeout() -> void:
@@ -152,11 +184,9 @@ func _on_dash_timer_timeout() -> void:
 	velocity.x = 0
 	move_and_slide()
 	is_dashing = false
-	print("timeout")
 	
 func _on_dash_recover_timer_timeout() -> void:
 	can_recover_dash = true
-	print("Recovered from dash.")
 
 ##### IS_STATE #####
 

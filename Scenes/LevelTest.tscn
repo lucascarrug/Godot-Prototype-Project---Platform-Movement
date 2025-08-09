@@ -13,10 +13,11 @@ size = Vector2(283, 36)
 [node name="Player" parent="." instance=ExtResource("1_1lf85")]
 position = Vector2(217, 179)
 jump_distance = 200.0
-jump_height = 100
-dash_force = 10.0
+jump_peak_time = 0.5
+jump_height = 80
+dash_force = 4.0
 dash_time = 0.2
-dash_recover_time = 1.0
+dash_recover_time = 0.3
 
 [node name="Floor" type="StaticBody2D" parent="."]
 
@@ -31,21 +32,23 @@ offset_right = 238.0
 offset_bottom = 278.0
 
 [node name="Floor2" type="StaticBody2D" parent="."]
-position = Vector2(446, -81)
+position = Vector2(325, -200)
 
 [node name="Panel" type="Panel" parent="Floor2"]
-offset_left = -51.0
-offset_top = 321.0
-offset_right = 233.0
-offset_bottom = 358.0
+offset_left = 111.0
+offset_top = 196.0
+offset_right = 395.0
+offset_bottom = 233.0
+rotation = 1.5708
 metadata/_edit_use_anchors_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor2"]
 position = Vector2(91.5, 340)
+rotation = 1.5708
 shape = SubResource("RectangleShape2D_m65f8")
 
 [node name="Floor3" type="StaticBody2D" parent="."]
-position = Vector2(916, -99)
+position = Vector2(539, -383)
 
 [node name="Panel" type="Panel" parent="Floor3"]
 offset_left = -51.0
@@ -59,7 +62,7 @@ position = Vector2(91.5, 340)
 shape = SubResource("RectangleShape2D_m65f8")
 
 [node name="Floor4" type="StaticBody2D" parent="."]
-position = Vector2(1360, -69)
+position = Vector2(217, 53)
 
 [node name="Panel" type="Panel" parent="Floor4"]
 offset_left = -51.0

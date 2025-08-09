@@ -18,12 +18,16 @@ func on_physics_process(delta):
 		state_machine.change_to(player.states.RUNNING)
 	
 	if Input.is_action_just_pressed(player.controls.JUMP):
+		print("JUmo")
 		player.jump_buffer_start()
 		state_machine.change_to(player.states.JUMPING)
 		
 	if not player.coyote_time_timer.is_stopped() and Input.is_action_just_pressed(player.controls.JUMP):
 		state_machine.change_to(player.states.JUMPING)
 
+	if player.is_on_wall_only():
+		state_machine.change_to(player.states.WALLSLIDING)
+	
 func end():
 	pass
 

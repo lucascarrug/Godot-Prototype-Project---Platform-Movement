@@ -12,6 +12,8 @@ func on_physics_process(delta):
 			state_machine.change_to(player.states.JUMPING)
 		elif player.is_running():
 			state_machine.change_to(player.states.RUNNING)
+		elif player.is_on_wall_only():
+			state_machine.change_to(player.states.WALLSLIDING)
 		else:
 			state_machine.change_to(player.states.IDLE)
 			
