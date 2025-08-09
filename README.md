@@ -1,6 +1,6 @@
 # Godot-Prototype-Project---Platform-Movement
-This repository have the basic platform movement with some features (like Hollow Knight) that make the game better to control. Some of them are, "BufferJump", "CoyoteTime", etc.
-Most of the code was developed by me, but I implemented elements from other sources to perfectly replicate the mechanics.
+<p>This repository has the basic platform movement with some features, such as "BufferJump" and "CoyoteTime" and some mechanics like "Dashing", "DoubleJumping", "WallSliding" and "WallJumping" that resemble the controls of Hollow Knight. Most of the code was developed by me, but I implemented elements from other sources to faithfully replicate the mechanics.</p>
+<p>I would like to highlight that this project is not perfect, - I'm only experimenting - but I believe that the result is enough to provide a great base to work with.</p>
 ## Sources
 <p>State machine: https://www.youtube.com/watch?v=bX-C6C03Jnc</p>
 <p>Jump height: https://www.youtube.com/watch?v=bn3ZUCZ0vMo&t</p>
