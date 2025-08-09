@@ -1,60 +1,87 @@
 extends CharacterBody2D
 class_name Player
 
-# Player utils.
+##### PLAYER UTILS #####
+
 var states: PlayerStateNames = PlayerStateNames.new()
 var controls: PlayerControls = PlayerControls.new()
 var stats: PlayerStats = PlayerStats.new()
 
-# Player stats.
-@export_group("Player Stats")
-@export var jump_distance := stats.JUMP_DISTANCE
-@export var fall_speed_increase := stats.FALL_SPEED_INCREASE
-@export var jump_peak_time := stats.JUMP_PEAK_TIME
-@export var jump_height := stats.JUMP_HEIGHT
-@export var jump_height_decrease := stats.JUMP_HEIGHT_DECREASE
-@export var dash_force := stats.DASH_FORCE
-@export var dash_time := stats.DASH_TIME
-@export var dash_recover_time := stats.DASH_RECOVER_TIME
-@export var max_air_jumps := stats.MAX_AIR_JUMPS
-@export var walljump_pushback := 2
+##### PLAYER STATS #####
 
-# Animation.
+@export_group("Player Stats")
+
+@export_subgroup("Speed")
+# Max distance (in pixels) that player can reach with a single jump.
+@export var max_jump_distance := stats.MAX_JUMP_DISTANCE
+
+@export_subgroup("Gravity")
+# Gravity multiplier when player is falling.
+@export var fall_speed_increase := stats.FALL_SPEED_INCREASE
+
+@export_subgroup("Jump")
+# Max air jumps.
+@export var max_air_jumps := stats.MAX_AIR_JUMPS
+# Max distance (in pixels) that player can jump with a single jump.
+@export var jump_height := stats.JUMP_HEIGHT
+# Time it takes to reach the jump peak.
+@export var jump_peak_time := stats.JUMP_PEAK_TIME
+# How much the jump is reduced by releasing the jump button.
+@export var jump_height_decrease := stats.JUMP_HEIGHT_DECREASE
+# Multiplier of velocity given to player when is walljumping.
+@export var walljump_pushback_force := stats.WALLJUMP_PUSHBACK_FORCE
+
+@export_subgroup("Dash")
+# Multiplier of velocity when player dashes.
+@export var dash_force := stats.DASH_FORCE
+# Dashing time.
+@export var dash_time := stats.DASH_TIME
+# Time to be able to recover the dash.
+@export var dash_recover_time := stats.DASH_RECOVER_TIME
+
+##### ANIMATION #####
+
 @onready var animated_sprite := $AnimatedSprite2D
 
-# Timers.
+##### TIMERS #####
+
 @onready var buffer_jump_timer := $Timers/BufferJumpTimer
 @onready var coyote_time_timer := $Timers/CoyoteTimeTimer
 @onready var dash_timer := $Timers/DashTimer
 @onready var dash_recover_timer := $Timers/DashRecoverTimer
 
-# Raycasts.
+##### RAYCASTS #####
+
 @onready var raycast_right := $RayCasts/Right
 @onready var raycast_left := $RayCasts/Left
 
+##### BASIC PHYSICS VARIABLES #####
 
-# Basic physics variables.
 var gravity: float
 var jump_speed: float
 var move_speed: float
 
-# Fancy physics variables. 
+##### BASIC CONTROL VARIABLES #####
+
+var last_direction := 0.0
+var last_point := 0.0
+var current_air_jumps := 0
+
+##### FANCY PHYSICS VARIABLES #####
+
 var jump_buffer := false
 var coyote_time_jump := true
 var was_on_floor := true
 
-# Fancy movement control variables.
+##### FANCY MOVEMENT CONTROL VARIABLES #####
+
 var is_dashing := false
 var can_recover_dash := true
 var can_dash := false
 var is_walljumping := false
 
-# General control variables.
-var last_direction := 0.0
-var last_point := 0.0
-var current_air_jumps := 0
+##### ANIMATION #####
 
-# Animation variables.
 var _is_facing_right := true
 
 ##### METHODS #####
@@ -63,7 +90,7 @@ func _ready() -> void:
 	# Set basic physics.
 	gravity = (2 * jump_height) / (jump_peak_time * jump_peak_time)
 	jump_speed = gravity * jump_peak_time
-	move_speed = jump_distance / (2 * jump_peak_time)
+	move_speed = max_jump_distance / (2 * jump_peak_time)
 	
 	# Set timers.
 	dash_timer.wait_time = dash_time
@@ -103,7 +130,7 @@ func move_x() -> void:
 func flip() -> void:
 	if (_is_facing_right and velocity.x < 0) or (not _is_facing_right and velocity.x > 0):
 		scale.x *= -1
-		walljump_pushback *= -1
+		walljump_pushback_force *= -1
 		_is_facing_right = not _is_facing_right
 
 func jump() -> void:
@@ -119,7 +146,7 @@ func jump() -> void:
 		else:
 			velocity.y = -jump_speed
 			if coyote_time_timer.is_stopped(): current_air_jumps += 1
-		
+
 func handle_gravity(delta) -> void:
 	if not is_on_floor():
 		velocity.y = min(velocity.y + gravity * delta, velocity.y + stats.MAX_FALL_SPEED)
@@ -164,9 +191,9 @@ func wall_slide_gravity(delta) -> void:
 
 func walljump() -> void:
 	if raycast_left.is_colliding():
-		velocity = Vector2(-move_speed * walljump_pushback, -jump_speed)
+		velocity = Vector2(-move_speed * walljump_pushback_force, -jump_speed)
 	elif raycast_right.is_colliding():
-		velocity = Vector2(-move_speed * walljump_pushback, -jump_speed)
+		velocity = Vector2(-move_speed * walljump_pushback_force, -jump_speed)
 		
 	is_walljumping = true
 	await get_tree().create_timer(0.12).timeout
