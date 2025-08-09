@@ -1,7 +1,6 @@
 extends Resource
 class_name PlayerStats
 
-const MOVE_SPEED := 600.0
 const FALL_SPEED_INCREASE := 1.5
 const JUMP_PEAK_TIME := 0.6
 const JUMP_HEIGHT := 200

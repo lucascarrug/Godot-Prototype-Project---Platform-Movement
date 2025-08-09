@@ -12,8 +12,8 @@ size = Vector2(283, 36)
 
 [node name="Player" parent="." instance=ExtResource("1_1lf85")]
 position = Vector2(217, 179)
-jump_height = 80
 jump_peak_time = 0.5
+jump_height = 80
 dash_force = 4.0
 dash_time = 0.2
 dash_recover_time = 0.3

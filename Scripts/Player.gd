@@ -18,6 +18,8 @@ var stats: PlayerStats = PlayerStats.new()
 @export_subgroup("Gravity")
 # Gravity multiplier when player is falling.
 @export var fall_speed_increase := stats.FALL_SPEED_INCREASE
+# Maximum velocity the player can fall.
+@export var max_fall_speed := stats.MAX_FALL_SPEED
 
 @export_subgroup("Jump")
 # Max air jumps.
@@ -108,6 +110,7 @@ func _physics_process(delta: float) -> void:
 	
 	if is_on_floor():
 		current_air_jumps = 0
+		coyote_time_jump = true
 		
 		if can_recover_dash:
 			can_dash = true
@@ -138,18 +141,18 @@ func jump() -> void:
 		animated_sprite.play("jumping")
 		jump_buffer = false
 		
-		if is_on_floor():
+		if is_on_floor() or coyote_time_jump:
 			velocity.y = -jump_speed
 		elif is_on_wall_only():
 			walljump()
 			current_air_jumps += 1
-		else:
+		elif current_air_jumps < max_air_jumps:
 			velocity.y = -jump_speed
 			if coyote_time_timer.is_stopped(): current_air_jumps += 1
 
 func handle_gravity(delta) -> void:
 	if not is_on_floor():
-		velocity.y = min(velocity.y + gravity * delta, velocity.y + stats.MAX_FALL_SPEED)
+		velocity.y = min(velocity.y + gravity * delta, velocity.y + max_fall_speed)
 
 ##### FANCY PHYSICS #####
 
@@ -233,4 +236,9 @@ func is_falling() -> bool:
 ##### CAN_ACTION #####
 
 func can_jump() -> bool:
-	return (current_air_jumps < max_air_jumps or coyote_time_jump) and jump_buffer
+	return jump_buffer and (
+		is_on_floor() or
+		is_on_wall_only() or
+		coyote_time_jump or
+		current_air_jumps < max_air_jumps
+	)
