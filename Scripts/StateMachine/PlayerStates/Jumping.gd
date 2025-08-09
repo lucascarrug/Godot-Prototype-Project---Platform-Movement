@@ -8,6 +8,7 @@ func on_physics_process(delta):
 	handle_gravity(delta)
 	player.move_and_slide()
 	
+	# Checks
 	if player.is_idying():
 		state_machine.change_to(player.states.IDLE)
 	

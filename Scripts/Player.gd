@@ -134,7 +134,7 @@ func flip() -> void:
 		_is_facing_right = not _is_facing_right
 
 func jump() -> void:
-	if (current_air_jumps < max_air_jumps or coyote_time_jump) and jump_buffer:
+	if can_jump():
 		animated_sprite.play("jumping")
 		jump_buffer = false
 		
@@ -228,3 +228,9 @@ func is_jumping() -> bool:
 
 func is_falling() -> bool:
 	return velocity.y >= 0 and not is_on_floor()
+
+
+##### CAN_ACTION #####
+
+func can_jump() -> bool:
+	return (current_air_jumps < max_air_jumps or coyote_time_jump) and jump_buffer

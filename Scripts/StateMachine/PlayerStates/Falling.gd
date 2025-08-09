@@ -13,23 +13,14 @@ func on_physics_process(delta):
 	# Checks.
 	if player.is_idying():
 		state_machine.change_to(player.states.IDLE)
-	
-	if player.is_running():
+	elif player.is_running():
 		state_machine.change_to(player.states.RUNNING)
-	
-	if Input.is_action_just_pressed(player.controls.JUMP):
-		print("JUmo")
+	elif Input.is_action_just_pressed(player.controls.JUMP):
 		player.jump_buffer_start()
-		state_machine.change_to(player.states.JUMPING)
-		
-	if not player.coyote_time_timer.is_stopped() and Input.is_action_just_pressed(player.controls.JUMP):
-		state_machine.change_to(player.states.JUMPING)
-
-	if player.is_on_wall_only():
+		if player.can_jump():
+			state_machine.change_to(player.states.JUMPING)
+	elif player.is_on_wall_only():
 		state_machine.change_to(player.states.WALLSLIDING)
-	
-func end():
-	pass
 
 func on_input(event):
 	if Input.is_action_just_pressed(player.controls.DASH):
