@@ -75,6 +75,7 @@ var current_air_jumps := 0
 
 var jump_buffer := false
 var coyote_time_jump := true
+var has_jumped := false
 var was_on_floor := true
 
 ##### FANCY MOVEMENT CONTROL VARIABLES #####
@@ -112,6 +113,7 @@ func _physics_process(delta: float) -> void:
 	
 	if is_on_floor():
 		coyote_time_jump = true
+		has_jumped = false
 		current_air_jumps = 0
 		
 		if can_recover_dash:
@@ -136,22 +138,24 @@ func flip() -> void:
 	if (_is_facing_right and velocity.x < 0) or (not _is_facing_right and velocity.x > 0):
 		scale.x *= -1
 		_is_facing_right = not _is_facing_right
+	
 	if velocity.x > 0.0:
 		walljump_pushback_force = stats.WALLJUMP_PUSHBACK_FORCE
 	elif velocity.x < 0.0:
 		walljump_pushback_force = -stats.WALLJUMP_PUSHBACK_FORCE
 
-func jump() -> void:	
-	if jump_buffer and (is_on_floor() or coyote_time_jump):
+func jump() -> void:
+	if jump_buffer and (is_on_floor() or (coyote_time_jump and not has_jumped)):
 		velocity.y = -jump_speed
 	elif is_on_wall_only():
 		walljump()
 		current_air_jumps += 1
-	elif current_air_jumps < max_air_jumps:
+	elif jump_buffer and current_air_jumps < max_air_jumps:
 		velocity.y = -jump_speed
 		if coyote_time_timer.is_stopped(): current_air_jumps += 1
-	
+		
 	jump_buffer = false
+	has_jumped = true
 	
 func handle_gravity(delta) -> void:
 	if not is_on_floor():
@@ -239,6 +243,6 @@ func is_falling() -> bool:
 ##### CAN_ACTION #####
 
 func can_jump():
-	return ((jump_buffer and (is_on_floor() or coyote_time_jump))
+	return (jump_buffer and (is_on_floor() or (coyote_time_jump and not has_jumped))
 	or is_on_wall_only()
-	or current_air_jumps < max_air_jumps)
+	or jump_buffer and current_air_jumps < max_air_jumps)
