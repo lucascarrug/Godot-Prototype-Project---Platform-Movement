@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Prototype Proyect - Platform Movement"
+config/name="Prototype Project - Platform Movement"
 run/main_scene="uid://igo4wxha8pcc"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
