@@ -5,7 +5,7 @@ func on_physics_process(delta):
 	player.animated_sprite.play("running")
 	
 	# Apply player state physics.
-	player.move_x()
+	player.move_x(delta)
 	player.flip()
 	handle_gravity(delta)
 	player.move_and_slide()
@@ -13,7 +13,7 @@ func on_physics_process(delta):
 	# Checks.
 	if player.is_falling():
 		state_machine.change_to(player.states.FALLING)
-	elif player.is_idying():
+	elif not Input.is_action_pressed(player.controls.RIGHT) and not Input.is_action_pressed(player.controls.LEFT):
 		state_machine.change_to(player.states.IDLE)
 	elif Input.is_action_just_pressed(player.controls.JUMP):
 		player.jump_buffer_start()
@@ -23,7 +23,5 @@ func on_physics_process(delta):
 		state_machine.change_to(player.states.WALLSLIDING)
 
 func on_input(event):
-	if not Input.is_action_pressed(player.controls.RIGHT) and not Input.is_action_pressed(player.controls.LEFT):
-		state_machine.change_to(player.states.IDLE)
-	elif Input.is_action_just_pressed(player.controls.DASH) and player.can_dash:
+	if Input.is_action_just_pressed(player.controls.DASH) and player.can_dash:
 		state_machine.change_to(player.states.DASHING)

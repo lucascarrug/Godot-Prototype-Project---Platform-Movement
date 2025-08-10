@@ -5,7 +5,7 @@ func start():
 
 func on_physics_process(delta):
 	# Apply player state physics.
-	player.move_x()
+	player.move_x(delta)
 	player.flip()
 	player.jump()
 	handle_gravity(delta)

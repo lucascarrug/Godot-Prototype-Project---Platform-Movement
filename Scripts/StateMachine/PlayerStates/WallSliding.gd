@@ -5,7 +5,7 @@ func enter():
 
 func on_physics_process(delta):
 	# Apply player state physics.
-	player.move_x()
+	player.move_x(delta)
 	player.flip()
 	
 	player.wall_slide_gravity(delta)
@@ -17,6 +17,8 @@ func on_physics_process(delta):
 		state_machine.change_to(player.states.JUMPING)
 	elif not player.is_on_wall() and not player.is_on_floor():
 		state_machine.change_to(player.states.FALLING)
+	elif player.is_on_floor():
+		state_machine.change_to(player.states.IDLE)
 
 func on_input(event):
 	pass

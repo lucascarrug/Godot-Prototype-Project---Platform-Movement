@@ -1,0 +1,256 @@
+[gd_scene load_steps=5 format=3 uid="uid://g47w4vdyisih"]
+
+[ext_resource type="PackedScene" uid="uid://vt21yl1tn0ce" path="res://Scenes/Player.tscn" id="1_llwst"]
+[ext_resource type="Texture2D" uid="uid://clbigknbduos5" path="res://Assets/Sprites/arrow.png" id="2_0plju"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0plju"]
+size = Vector2(180, 56)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_ms0wi"]
+
+[node name="Level2" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_llwst")]
+air_resistance = 1000
+
+[node name="Arrows" type="Node2D" parent="."]
+
+[node name="Arrow2" type="Sprite2D" parent="Arrows"]
+position = Vector2(772, -157)
+rotation = -0.478196
+scale = Vector2(0.160156, 0.160156)
+texture = ExtResource("2_0plju")
+
+[node name="Arrow3" type="Sprite2D" parent="Arrows"]
+position = Vector2(848, -276)
+rotation = -2.73924
+scale = Vector2(0.169922, 0.169922)
+texture = ExtResource("2_0plju")
+
+[node name="Arrow5" type="Sprite2D" parent="Arrows"]
+position = Vector2(1253, -496)
+rotation = -0.100149
+scale = Vector2(0.226382, 0.226382)
+texture = ExtResource("2_0plju")
+
+[node name="Arrow" type="Sprite2D" parent="Arrows"]
+position = Vector2(281, -31)
+rotation = -0.574381
+scale = Vector2(0.199219, 0.199219)
+texture = ExtResource("2_0plju")
+
+[node name="Arrow6" type="Sprite2D" parent="Arrows"]
+position = Vector2(1499, -496)
+rotation = 0.158644
+scale = Vector2(0.226382, 0.226382)
+texture = ExtResource("2_0plju")
+
+[node name="Arrow7" type="Sprite2D" parent="Arrows"]
+position = Vector2(1926.46, -521.618)
+rotation = -0.100149
+scale = Vector2(0.226382, 0.226382)
+texture = ExtResource("2_0plju")
+
+[node name="Arrow8" type="Sprite2D" parent="Arrows"]
+position = Vector2(2172.46, -521.618)
+rotation = 0.158644
+scale = Vector2(0.226382, 0.226382)
+texture = ExtResource("2_0plju")
+
+[node name="Arrow9" type="Sprite2D" parent="Arrows"]
+position = Vector2(2410, -595)
+rotation = -2.4499
+scale = Vector2(0.226382, 0.226382)
+texture = ExtResource("2_0plju")
+
+[node name="Arrow10" type="Sprite2D" parent="Arrows"]
+position = Vector2(2371, -811)
+rotation = -0.653703
+scale = Vector2(0.226382, 0.226382)
+texture = ExtResource("2_0plju")
+
+[node name="Arrow11" type="Sprite2D" parent="Arrows"]
+position = Vector2(2311, -975)
+rotation = -2.72656
+scale = Vector2(0.226382, 0.226382)
+texture = ExtResource("2_0plju")
+
+[node name="Floors" type="Node2D" parent="."]
+
+[node name="Floor1" type="StaticBody2D" parent="Floors"]
+position = Vector2(79, 61)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Floor1"]
+shape = SubResource("RectangleShape2D_0plju")
+
+[node name="TextureRect" type="TextureRect" parent="Floors/Floor1/CollisionShape2D"]
+modulate = Color(0.26796, 0.2156, 0.44, 1)
+offset_left = -89.0
+offset_top = -28.0
+offset_right = 91.0
+offset_bottom = 29.0
+texture = SubResource("CanvasTexture_ms0wi")
+metadata/_edit_use_anchors_ = true
+
+[node name="Floor2" type="StaticBody2D" parent="Floors"]
+position = Vector2(597, -72)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Floor2"]
+shape = SubResource("RectangleShape2D_0plju")
+
+[node name="TextureRect" type="TextureRect" parent="Floors/Floor2/CollisionShape2D"]
+modulate = Color(0.26796, 0.2156, 0.44, 1)
+offset_left = -89.0
+offset_top = -28.0
+offset_right = 91.0
+offset_bottom = 29.0
+texture = SubResource("CanvasTexture_ms0wi")
+metadata/_edit_use_anchors_ = true
+
+[node name="Floor3" type="StaticBody2D" parent="Floors"]
+position = Vector2(1030, -186)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Floor3"]
+shape = SubResource("RectangleShape2D_0plju")
+
+[node name="TextureRect" type="TextureRect" parent="Floors/Floor3/CollisionShape2D"]
+modulate = Color(0.26796, 0.2156, 0.44, 1)
+offset_left = -89.0
+offset_top = -28.0
+offset_right = 91.0
+offset_bottom = 29.0
+texture = SubResource("CanvasTexture_ms0wi")
+metadata/_edit_use_anchors_ = true
+
+[node name="Floor4" type="StaticBody2D" parent="Floors"]
+position = Vector2(599, -319)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Floor4"]
+shape = SubResource("RectangleShape2D_0plju")
+
+[node name="TextureRect" type="TextureRect" parent="Floors/Floor4/CollisionShape2D"]
+modulate = Color(0.26796, 0.2156, 0.44, 1)
+offset_left = -89.0
+offset_top = -28.0
+offset_right = 91.0
+offset_bottom = 29.0
+texture = SubResource("CanvasTexture_ms0wi")
+metadata/_edit_use_anchors_ = true
+
+[node name="Floor5" type="StaticBody2D" parent="Floors"]
+position = Vector2(1028, -413)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Floor5"]
+shape = SubResource("RectangleShape2D_0plju")
+
+[node name="TextureRect" type="TextureRect" parent="Floors/Floor5/CollisionShape2D"]
+modulate = Color(0.26796, 0.2156, 0.44, 1)
+offset_left = -89.0
+offset_top = -28.0
+offset_right = 91.0
+offset_bottom = 29.0
+texture = SubResource("CanvasTexture_ms0wi")
+metadata/_edit_use_anchors_ = true
+
+[node name="Floor6" type="StaticBody2D" parent="Floors"]
+position = Vector2(1765, -413)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Floor6"]
+shape = SubResource("RectangleShape2D_0plju")
+
+[node name="TextureRect" type="TextureRect" parent="Floors/Floor6/CollisionShape2D"]
+modulate = Color(0.26796, 0.2156, 0.44, 1)
+offset_left = -89.0
+offset_top = -28.0
+offset_right = 91.0
+offset_bottom = 29.0
+texture = SubResource("CanvasTexture_ms0wi")
+metadata/_edit_use_anchors_ = true
+
+[node name="Floor7" type="StaticBody2D" parent="Floors"]
+position = Vector2(2299, -415)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Floor7"]
+shape = SubResource("RectangleShape2D_0plju")
+
+[node name="TextureRect" type="TextureRect" parent="Floors/Floor7/CollisionShape2D"]
+modulate = Color(0.26796, 0.2156, 0.44, 1)
+offset_left = -89.0
+offset_top = -28.0
+offset_right = 91.0
+offset_bottom = 29.0
+texture = SubResource("CanvasTexture_ms0wi")
+metadata/_edit_use_anchors_ = true
+
+[node name="Floor8" type="StaticBody2D" parent="Floors"]
+position = Vector2(2537.08, -578.923)
+rotation = -1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Floor8"]
+shape = SubResource("RectangleShape2D_0plju")
+
+[node name="TextureRect" type="TextureRect" parent="Floors/Floor8/CollisionShape2D"]
+modulate = Color(0.26796, 0.2156, 0.44, 1)
+offset_left = -89.0
+offset_top = -28.0
+offset_right = 91.0
+offset_bottom = 29.0
+texture = SubResource("CanvasTexture_ms0wi")
+metadata/_edit_use_anchors_ = true
+
+[node name="Floor9" type="StaticBody2D" parent="Floors"]
+position = Vector2(2224, -715)
+rotation = -1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Floor9"]
+shape = SubResource("RectangleShape2D_0plju")
+
+[node name="TextureRect" type="TextureRect" parent="Floors/Floor9/CollisionShape2D"]
+modulate = Color(0.26796, 0.2156, 0.44, 1)
+offset_left = -89.0
+offset_top = -28.0
+offset_right = 91.0
+offset_bottom = 29.0
+texture = SubResource("CanvasTexture_ms0wi")
+metadata/_edit_use_anchors_ = true
+
+[node name="Floor10" type="StaticBody2D" parent="Floors"]
+position = Vector2(2536, -875)
+rotation = -1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Floor10"]
+shape = SubResource("RectangleShape2D_0plju")
+
+[node name="TextureRect" type="TextureRect" parent="Floors/Floor10/CollisionShape2D"]
+modulate = Color(0.26796, 0.2156, 0.44, 1)
+offset_left = -89.0
+offset_top = -28.0
+offset_right = 91.0
+offset_bottom = 29.0
+texture = SubResource("CanvasTexture_ms0wi")
+metadata/_edit_use_anchors_ = true
+
+[node name="Floor11" type="StaticBody2D" parent="Floors"]
+position = Vector2(1977, -939)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Floor11"]
+shape = SubResource("RectangleShape2D_0plju")
+
+[node name="TextureRect" type="TextureRect" parent="Floors/Floor11/CollisionShape2D"]
+modulate = Color(0.26796, 0.2156, 0.44, 1)
+offset_left = -89.0
+offset_top = -28.0
+offset_right = 91.0
+offset_bottom = 29.0
+texture = SubResource("CanvasTexture_ms0wi")
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="."]
+offset_left = 36.0
+offset_top = -36.0
+offset_right = 150.0
+offset_bottom = 13.0
+text = "DOUBLE JUMP
+AND SPEED"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true

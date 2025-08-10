@@ -19,9 +19,7 @@ func on_physics_process(delta):
 			
 	# Apply player state physics.
 	player.move_and_slide()
-	
-func end():
-	pass
+	print("velocity: ", player.velocity.x)
 
 func on_input(event):
 	pass

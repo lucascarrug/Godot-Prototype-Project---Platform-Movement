@@ -43,6 +43,20 @@ var stats: PlayerStats = PlayerStats.new()
 # Time to be able to recover the dash.
 @export var dash_recover_time := stats.DASH_RECOVER_TIME
 
+@export_subgroup("Forces")
+# How increased is velocity when player moves.
+@export var acceleration := stats.ACCELETARION
+# How velocity is decreased in air.
+@export var air_resistance := stats.AIR_RESISTANCE
+# How velocity is decreased on floor.
+@export var floor_friction := stats.FLOOR_FRICTION
+
+@export_subgroup("Timers")
+# Margin of time to jump before player touches floor.
+@export var buffer_jump_timer_time := stats.BUFFER_JUMP_TIMER_TIME
+# Margin of time to jump after player leaves floor.
+@export var coyote_time_timer_time := stats.COYOTE_TIME_TIMER_TIME
+
 ##### ANIMATION #####
 
 @onready var animated_sprite := $AnimatedSprite2D
@@ -100,6 +114,8 @@ func _ready() -> void:
 	# Set timers.
 	dash_timer.wait_time = dash_time
 	dash_recover_timer.wait_time = dash_recover_time
+	buffer_jump_timer.wait_time = buffer_jump_timer_time
+	coyote_time_timer.wait_time = coyote_time_timer_time 
 	
 func _physics_process(delta: float) -> void:
 	## Coyote Time.
@@ -124,32 +140,43 @@ func _physics_process(delta: float) -> void:
 
 ##### BASIC PHYSICS #####
 
-func idle() -> void:
-	velocity.x = 0
-	move_x()
+func idle(delta) -> void:
+	if velocity.x > 0.0:
+		if not is_on_floor():
+			velocity.x = max(velocity.x - air_resistance * delta, 0)
+		else:
+			velocity.x = max(velocity.x - floor_friction * delta, 0)
+	else:
+		if not is_on_floor():
+			velocity.x = min(velocity.x + air_resistance * delta, 0)
+		else:
+			velocity.x = min(velocity.x + floor_friction * delta, 0)
 
-func move_x() -> void:
+func move_x(delta) -> void:
 	if is_walljumping:
 		return
-	var horizontal_direction = Input.get_action_strength(controls.RIGHT) - Input.get_action_strength(controls.LEFT)
-	velocity.x = move_speed * horizontal_direction
+		
+	if Input.is_action_pressed(controls.RIGHT):
+		velocity.x = min(velocity.x + acceleration * delta, move_speed)
+	elif Input.is_action_pressed(controls.LEFT):
+		velocity.x = max(velocity.x - acceleration * delta, -move_speed)
 
 func flip() -> void:
-	if (_is_facing_right and velocity.x < 0) or (not _is_facing_right and velocity.x > 0):
+	## If player changes move direction.
+	if (_is_facing_right and Input.is_action_pressed(controls.LEFT)) or (not _is_facing_right and Input.is_action_pressed(controls.RIGHT)):
 		scale.x *= -1
 		_is_facing_right = not _is_facing_right
 	
 	if velocity.x > 0.0:
-		walljump_pushback_force = stats.WALLJUMP_PUSHBACK_FORCE
+		walljump_pushback_force = abs(walljump_pushback_force)
 	elif velocity.x < 0.0:
-		walljump_pushback_force = -stats.WALLJUMP_PUSHBACK_FORCE
+		walljump_pushback_force = -abs(walljump_pushback_force)
 
 func jump() -> void:
 	if jump_buffer and (is_on_floor() or (coyote_time_jump and not has_jumped)):
 		velocity.y = -jump_speed
 	elif is_on_wall_only():
 		walljump()
-		current_air_jumps += 1
 	elif jump_buffer and current_air_jumps < max_air_jumps:
 		velocity.y = -jump_speed
 		if coyote_time_timer.is_stopped(): current_air_jumps += 1
@@ -182,7 +209,14 @@ func dash() -> void:
 	can_recover_dash = false
 	can_dash = false
 	animated_sprite.play("dashing")
-	velocity = Vector2(move_speed * last_direction * dash_force, 0)
+	
+	var dash_direction = Input.get_action_strength(controls.RIGHT) - Input.get_action_strength(controls.LEFT)
+	if abs(dash_direction) != 0:
+		dash_direction /= abs(dash_direction)
+	else:
+		dash_direction = last_direction
+	
+	velocity = Vector2(move_speed * dash_direction * dash_force, 0)
 	dash_timer.start()
 	dash_recover_timer.start()
 
@@ -206,7 +240,7 @@ func walljump() -> void:
 		velocity = Vector2(-move_speed * walljump_pushback_force, -jump_speed)
 		
 	is_walljumping = true
-	await get_tree().create_timer(0.05 * abs(walljump_pushback_force)).timeout
+	await get_tree().create_timer(0.15).timeout
 	is_walljumping = false
 
 ##### SIGNALS #####

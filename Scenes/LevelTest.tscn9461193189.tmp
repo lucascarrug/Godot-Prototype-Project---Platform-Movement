@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://vt21yl1tn0ce" path="res://Scenes/Player.tscn" id="1_1lf85"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1lf85"]
-size = Vector2(1363, 34.75)
+size = Vector2(237, 34.75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m65f8"]
 size = Vector2(283, 36)
@@ -12,7 +12,12 @@ size = Vector2(283, 36)
 
 [node name="Player" parent="." instance=ExtResource("1_1lf85")]
 position = Vector2(217, 179)
+jump_height = 80
+jump_peak_time = 0.5
 available_dash = true
+dash_force = 4.0
+dash_time = 0.2
+dash_recover_time = 0.3
 
 [node name="Floor" type="StaticBody2D" parent="."]
 
@@ -21,9 +26,9 @@ position = Vector2(117.5, 259)
 shape = SubResource("RectangleShape2D_1lf85")
 
 [node name="Panel" type="Panel" parent="Floor"]
-offset_left = -565.0
+offset_left = 2.0
 offset_top = 241.0
-offset_right = 805.0
+offset_right = 238.0
 offset_bottom = 278.0
 
 [node name="Floor2" type="StaticBody2D" parent="."]
@@ -69,58 +74,3 @@ metadata/_edit_use_anchors_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor4"]
 position = Vector2(91.5, 340)
 shape = SubResource("RectangleShape2D_m65f8")
-
-[node name="Paneles" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Panel7" type="Panel" parent="Paneles"]
-layout_mode = 0
-offset_left = 309.0
-offset_top = 333.0
-offset_right = 365.0
-offset_bottom = 368.0
-
-[node name="Panel6" type="Panel" parent="Paneles"]
-layout_mode = 0
-offset_left = 166.0
-offset_top = 334.0
-offset_right = 222.0
-offset_bottom = 369.0
-
-[node name="Panel5" type="Panel" parent="Paneles"]
-layout_mode = 0
-offset_left = 23.0
-offset_top = 335.0
-offset_right = 79.0
-offset_bottom = 370.0
-
-[node name="Panel4" type="Panel" parent="Paneles"]
-layout_mode = 0
-offset_left = -127.0
-offset_top = 331.0
-offset_right = -71.0
-offset_bottom = 366.0
-
-[node name="Panel3" type="Panel" parent="Paneles"]
-layout_mode = 0
-offset_left = -273.0
-offset_top = 329.0
-offset_right = -217.0
-offset_bottom = 364.0
-
-[node name="Panel" type="Panel" parent="Paneles"]
-layout_mode = 0
-offset_left = -520.0
-offset_top = 330.0
-offset_right = -464.0
-offset_bottom = 365.0
-
-[node name="Panel2" type="Panel" parent="Paneles"]
-layout_mode = 0
-offset_left = -387.0
-offset_top = 330.0
-offset_right = -331.0
-offset_bottom = 365.0

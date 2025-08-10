@@ -1,0 +1,192 @@
+[gd_scene load_steps=5 format=3 uid="uid://vv8nyksf26kj"]
+
+[ext_resource type="PackedScene" uid="uid://vt21yl1tn0ce" path="res://Scenes/Player.tscn" id="1_2sg52"]
+[ext_resource type="Texture2D" uid="uid://clbigknbduos5" path="res://Assets/Sprites/arrow.png" id="2_y6vx4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7tk33"]
+size = Vector2(180, 56)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_44apn"]
+
+[node name="Level3" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_2sg52")]
+position = Vector2(1, -9)
+max_jump_distance = 200.0
+max_air_jumps = 0
+jump_height = 20
+jump_peak_time = 0.2
+walljump_pushback_force = 1
+available_dash = true
+dash_time = 0.12
+dash_recover_time = 0.2
+acceleration = 10000
+air_resistance = 100
+floor_friction = 1000000
+
+[node name="Arrows" type="Node2D" parent="."]
+position = Vector2(2817, 355)
+
+[node name="Arrow2" type="Sprite2D" parent="Arrows"]
+position = Vector2(-2431, -357)
+rotation = -0.0173375
+scale = Vector2(0.160156, 0.160156)
+texture = ExtResource("2_y6vx4")
+
+[node name="Arrow5" type="Sprite2D" parent="Arrows"]
+position = Vector2(-1908, -330)
+rotation = -0.100149
+scale = Vector2(0.226382, 0.226382)
+texture = ExtResource("2_y6vx4")
+
+[node name="Arrow" type="Sprite2D" parent="Arrows"]
+position = Vector2(-564, -197)
+rotation = 0.208588
+scale = Vector2(0.199219, 0.199219)
+texture = ExtResource("2_y6vx4")
+
+[node name="Arrow6" type="Sprite2D" parent="Arrows"]
+position = Vector2(-1468, -349)
+rotation = 0.158644
+scale = Vector2(0.226382, 0.226382)
+texture = ExtResource("2_y6vx4")
+
+[node name="Arrow8" type="Sprite2D" parent="Arrows"]
+position = Vector2(-1023, -261)
+rotation = 0.158644
+scale = Vector2(0.226382, 0.226382)
+texture = ExtResource("2_y6vx4")
+
+[node name="Floors" type="Node2D" parent="."]
+position = Vector2(11, 19)
+
+[node name="Floor1" type="StaticBody2D" parent="Floors"]
+position = Vector2(79, 61)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Floor1"]
+shape = SubResource("RectangleShape2D_7tk33")
+
+[node name="TextureRect" type="TextureRect" parent="Floors/Floor1/CollisionShape2D"]
+modulate = Color(0.26796, 0.2156, 0.44, 1)
+offset_left = -89.0
+offset_top = -28.0
+offset_right = 91.0
+offset_bottom = 29.0
+texture = SubResource("CanvasTexture_44apn")
+metadata/_edit_use_anchors_ = true
+
+[node name="Floor2" type="StaticBody2D" parent="Floors"]
+position = Vector2(2523, 299)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Floor2"]
+shape = SubResource("RectangleShape2D_7tk33")
+
+[node name="TextureRect" type="TextureRect" parent="Floors/Floor2/CollisionShape2D"]
+modulate = Color(0.26796, 0.2156, 0.44, 1)
+offset_left = -89.0
+offset_top = -28.0
+offset_right = 91.0
+offset_bottom = 29.0
+texture = SubResource("CanvasTexture_44apn")
+metadata/_edit_use_anchors_ = true
+
+[node name="Floor3" type="StaticBody2D" parent="Floors"]
+position = Vector2(1100, 70)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Floor3"]
+shape = SubResource("RectangleShape2D_7tk33")
+
+[node name="TextureRect" type="TextureRect" parent="Floors/Floor3/CollisionShape2D"]
+modulate = Color(0.26796, 0.2156, 0.44, 1)
+offset_left = -89.0
+offset_top = -28.0
+offset_right = 91.0
+offset_bottom = 29.0
+texture = SubResource("CanvasTexture_44apn")
+metadata/_edit_use_anchors_ = true
+
+[node name="Floor4" type="StaticBody2D" parent="Floors"]
+position = Vector2(662, 74)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Floor4"]
+shape = SubResource("RectangleShape2D_7tk33")
+
+[node name="TextureRect" type="TextureRect" parent="Floors/Floor4/CollisionShape2D"]
+modulate = Color(0.26796, 0.2156, 0.44, 1)
+offset_left = -89.0
+offset_top = -28.0
+offset_right = 91.0
+offset_bottom = 29.0
+texture = SubResource("CanvasTexture_44apn")
+metadata/_edit_use_anchors_ = true
+
+[node name="Floor5" type="StaticBody2D" parent="Floors"]
+position = Vector2(1527, 69)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Floor5"]
+shape = SubResource("RectangleShape2D_7tk33")
+
+[node name="TextureRect" type="TextureRect" parent="Floors/Floor5/CollisionShape2D"]
+modulate = Color(0.26796, 0.2156, 0.44, 1)
+offset_left = -89.0
+offset_top = -28.0
+offset_right = 91.0
+offset_bottom = 29.0
+texture = SubResource("CanvasTexture_44apn")
+metadata/_edit_use_anchors_ = true
+
+[node name="Floor6" type="StaticBody2D" parent="Floors"]
+position = Vector2(2000, 126)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Floor6"]
+shape = SubResource("RectangleShape2D_7tk33")
+
+[node name="TextureRect" type="TextureRect" parent="Floors/Floor6/CollisionShape2D"]
+modulate = Color(0.26796, 0.2156, 0.44, 1)
+offset_left = -89.0
+offset_top = -28.0
+offset_right = 91.0
+offset_bottom = 29.0
+texture = SubResource("CanvasTexture_44apn")
+metadata/_edit_use_anchors_ = true
+
+[node name="Floor10" type="StaticBody2D" parent="Floors"]
+position = Vector2(1791, -72)
+rotation = -1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Floor10"]
+shape = SubResource("RectangleShape2D_7tk33")
+
+[node name="TextureRect" type="TextureRect" parent="Floors/Floor10/CollisionShape2D"]
+modulate = Color(0.26796, 0.2156, 0.44, 1)
+offset_left = -89.0
+offset_top = -28.0
+offset_right = 91.0
+offset_bottom = 29.0
+texture = SubResource("CanvasTexture_44apn")
+metadata/_edit_use_anchors_ = true
+
+[node name="Floor11" type="StaticBody2D" parent="Floors"]
+position = Vector2(543, 134)
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floors/Floor11"]
+shape = SubResource("RectangleShape2D_7tk33")
+
+[node name="TextureRect" type="TextureRect" parent="Floors/Floor11/CollisionShape2D"]
+modulate = Color(0.26796, 0.2156, 0.44, 1)
+offset_left = -89.0
+offset_top = -28.0
+offset_right = 91.0
+offset_bottom = 29.0
+texture = SubResource("CanvasTexture_44apn")
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="."]
+offset_left = 30.0
+offset_top = -17.0
+offset_right = 144.0
+offset_bottom = 32.0
+text = "TRY DASHING"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true

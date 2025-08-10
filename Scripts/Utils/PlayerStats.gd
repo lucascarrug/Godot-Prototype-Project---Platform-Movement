@@ -1,14 +1,30 @@
 extends Resource
 class_name PlayerStats
 
+## SPEED
+const MAX_JUMP_DISTANCE := 500.0
+
+## GRAVITY
 const FALL_SPEED_INCREASE := 1.5
-const JUMP_PEAK_TIME := 0.6
-const JUMP_HEIGHT := 200
-const JUMP_HEIGHT_DECREASE := 4.0
-const MAX_JUMP_DISTANCE := 300.0
 const MAX_FALL_SPEED := 1000.0
+
+## JUMP
+const MAX_AIR_JUMPS := 1
+const JUMP_HEIGHT := 100
+const JUMP_PEAK_TIME := 0.5
+const JUMP_HEIGHT_DECREASE := 4.0
+const WALLJUMP_PUSHBACK_FORCE := 1.0
+
+## DASH
 const DASH_FORCE := 3.0
 const DASH_TIME := 0.1
 const DASH_RECOVER_TIME := 0.5
-const MAX_AIR_JUMPS := 1
-const WALLJUMP_PUSHBACK_FORCE := 2
+
+## FORCES
+const ACCELETARION := 5000
+const AIR_RESISTANCE := 100
+const FLOOR_FRICTION := 10000
+
+### TIMERS
+const BUFFER_JUMP_TIMER_TIME := 0.2
+const COYOTE_TIME_TIMER_TIME := 0.15
