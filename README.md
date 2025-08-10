@@ -8,3 +8,6 @@
 <p>Dash: https://www.youtube.com/watch?v=zLdI0TnD_0w&t</p>
 <p>Better jump building: https://www.youtube.com/watch?v=fE8f5-ZHD_k&t</p>
 <p>Wall sliding & walljump: https://www.youtube.com/watch?v=fYnURBEIogk&t</p>
+
+## Notes
+<p>If you want to try this project and explore its possibilities, be aware that not all parameter variations provide a good experience. That's why I created 3 easy levels just to give you a quick glimpse of what you can do.</p>
