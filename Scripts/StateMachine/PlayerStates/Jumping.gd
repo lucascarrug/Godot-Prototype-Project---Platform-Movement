@@ -1,5 +1,8 @@
 extends PlayerStateBase
 
+func start():
+	player.animated_sprite.play("jumping")
+
 func on_physics_process(delta):
 	# Apply player state physics.
 	player.move_x()
@@ -25,7 +28,7 @@ func on_physics_process(delta):
 		state_machine.change_to(player.states.WALLSLIDING)
 
 func on_input(event):
-	if Input.is_action_just_pressed(player.controls.DASH):
+	if Input.is_action_just_pressed(player.controls.DASH) and player.can_dash:
 		state_machine.change_to(player.states.DASHING)
 	elif Input.is_action_just_pressed(player.controls.JUMP):
 		state_machine.change_to(player.states.JUMPING)

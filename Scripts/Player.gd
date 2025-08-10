@@ -34,6 +34,8 @@ var stats: PlayerStats = PlayerStats.new()
 @export var walljump_pushback_force := stats.WALLJUMP_PUSHBACK_FORCE
 
 @export_subgroup("Dash")
+# Activate / desactivate the ability to dash.
+@export var available_dash := true
 # Multiplier of velocity when player dashes.
 @export var dash_force := stats.DASH_FORCE
 # Dashing time.
@@ -109,12 +111,12 @@ func _physics_process(delta: float) -> void:
 		current_air_jumps = 0
 	
 	if is_on_floor():
-		current_air_jumps = 0
 		coyote_time_jump = true
+		current_air_jumps = 0
 		
 		if can_recover_dash:
-			can_dash = true
-	
+			if available_dash: can_dash = true
+
 	## General.
 	calculate_x_displacement()
 
@@ -133,26 +135,27 @@ func move_x() -> void:
 func flip() -> void:
 	if (_is_facing_right and velocity.x < 0) or (not _is_facing_right and velocity.x > 0):
 		scale.x *= -1
-		walljump_pushback_force *= -1
 		_is_facing_right = not _is_facing_right
+	if velocity.x > 0.0:
+		walljump_pushback_force = stats.WALLJUMP_PUSHBACK_FORCE
+	elif velocity.x < 0.0:
+		walljump_pushback_force = -stats.WALLJUMP_PUSHBACK_FORCE
 
-func jump() -> void:
-	if can_jump():
-		animated_sprite.play("jumping")
-		jump_buffer = false
-		
-		if is_on_floor() or coyote_time_jump:
-			velocity.y = -jump_speed
-		elif is_on_wall_only():
-			walljump()
-			current_air_jumps += 1
-		elif current_air_jumps < max_air_jumps:
-			velocity.y = -jump_speed
-			if coyote_time_timer.is_stopped(): current_air_jumps += 1
-
+func jump() -> void:	
+	if jump_buffer and (is_on_floor() or coyote_time_jump):
+		velocity.y = -jump_speed
+	elif is_on_wall_only():
+		walljump()
+		current_air_jumps += 1
+	elif current_air_jumps < max_air_jumps:
+		velocity.y = -jump_speed
+		if coyote_time_timer.is_stopped(): current_air_jumps += 1
+	
+	jump_buffer = false
+	
 func handle_gravity(delta) -> void:
 	if not is_on_floor():
-		velocity.y = min(velocity.y + gravity * delta, velocity.y + max_fall_speed)
+		velocity.y = min(velocity.y + gravity * delta, max_fall_speed)
 
 ##### FANCY PHYSICS #####
 
@@ -190,7 +193,7 @@ func wall_slide_gravity(delta) -> void:
 	if is_jumping():
 		handle_gravity(delta)
 	if is_falling():
-		velocity.y = min(velocity.y + gravity * delta, velocity.y + stats.MAX_FALL_SPEED / 7)
+		velocity.y = min(velocity.y + gravity * delta, stats.MAX_FALL_SPEED / 7)
 
 func walljump() -> void:
 	if raycast_left.is_colliding():
@@ -199,7 +202,7 @@ func walljump() -> void:
 		velocity = Vector2(-move_speed * walljump_pushback_force, -jump_speed)
 		
 	is_walljumping = true
-	await get_tree().create_timer(0.12).timeout
+	await get_tree().create_timer(0.05 * abs(walljump_pushback_force)).timeout
 	is_walljumping = false
 
 ##### SIGNALS #####
@@ -235,10 +238,7 @@ func is_falling() -> bool:
 
 ##### CAN_ACTION #####
 
-func can_jump() -> bool:
-	return jump_buffer and (
-		is_on_floor() or
-		is_on_wall_only() or
-		coyote_time_jump or
-		current_air_jumps < max_air_jumps
-	)
+func can_jump():
+	return ((jump_buffer and (is_on_floor() or coyote_time_jump))
+	or is_on_wall_only()
+	or current_air_jumps < max_air_jumps)

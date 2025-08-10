@@ -17,6 +17,7 @@ func on_physics_process(delta):
 		state_machine.change_to(player.states.IDLE)
 	elif Input.is_action_just_pressed(player.controls.JUMP):
 		player.jump_buffer_start()
+	if player.jump_buffer and player.can_jump():
 		state_machine.change_to(player.states.JUMPING)
 	elif player.is_on_wall_only():
 		state_machine.change_to(player.states.WALLSLIDING)
@@ -24,5 +25,5 @@ func on_physics_process(delta):
 func on_input(event):
 	if not Input.is_action_pressed(player.controls.RIGHT) and not Input.is_action_pressed(player.controls.LEFT):
 		state_machine.change_to(player.states.IDLE)
-	elif Input.is_action_just_pressed(player.controls.DASH):
+	elif Input.is_action_just_pressed(player.controls.DASH) and player.can_dash:
 		state_machine.change_to(player.states.DASHING)
