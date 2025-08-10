@@ -6,8 +6,6 @@ extends Node
 # Reference to state machine.
 var state_machine : StateMachine
 
-
-
 ## Commun methods.
 func start():
 	pass

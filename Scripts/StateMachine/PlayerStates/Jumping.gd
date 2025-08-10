@@ -14,17 +14,13 @@ func on_physics_process(delta):
 	# Checks
 	if player.is_idying():
 		state_machine.change_to(player.states.IDLE)
-	
-	if player.is_falling():
+	elif player.is_falling():
 		state_machine.change_to(player.states.FALLING)
-	
-	if Input.is_action_just_pressed(player.controls.JUMP):
+	elif Input.is_action_just_pressed(player.controls.JUMP):
 		player.jump_buffer_start()
-		
-	if not Input.is_action_pressed(player.controls.JUMP):
+	elif not Input.is_action_pressed(player.controls.JUMP):
 		player.on_jump_released()
-	
-	if player.is_on_wall_only():
+	elif player.is_on_wall_only():
 		state_machine.change_to(player.states.WALLSLIDING)
 
 func on_input(event):
