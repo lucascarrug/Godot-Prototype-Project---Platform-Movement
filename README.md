@@ -11,3 +11,4 @@
 
 ## Notes
 <p>If you want to try this project and explore its possibilities, be aware that not all parameter variations provide a good experience. That's why I created 3 easy levels just to give you a quick glimpse of what you can do.</p>
+<p>In addition, the player can reload their dash only when touching the floor, but can reload their air jump when touching either the floor or a wall. These rules can be changed in Player's _physics_process().</p>
