@@ -14,7 +14,6 @@ func on_physics_process(delta):
 	# Checks.
 	if Input.is_action_just_pressed(player.controls.JUMP):
 		player.jump_buffer_start()
-	elif player.jump_buffer:
 		state_machine.change_to(player.states.JUMPING)
 	elif not player.is_on_wall() and not player.is_on_floor():
 		state_machine.change_to(player.states.FALLING)
