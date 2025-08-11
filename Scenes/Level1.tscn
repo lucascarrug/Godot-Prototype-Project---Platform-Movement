@@ -15,8 +15,9 @@ position = Vector2(3, -2)
 max_air_jumps = 0
 jump_height = 300
 jump_peak_time = 2.0
-walljump_pushback_force = 7
-air_resistance = 100
+walljump_pushback_force = 7.0
+available_dash = false
+acceleration = 500
 
 [node name="Arrows" type="Node2D" parent="."]
 

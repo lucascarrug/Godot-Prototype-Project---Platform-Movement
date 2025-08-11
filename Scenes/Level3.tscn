@@ -16,12 +16,9 @@ max_jump_distance = 200.0
 max_air_jumps = 0
 jump_height = 20
 jump_peak_time = 0.2
-walljump_pushback_force = 1
-available_dash = true
 dash_time = 0.12
 dash_recover_time = 0.2
 acceleration = 10000
-air_resistance = 100
 floor_friction = 1000000
 
 [node name="Arrows" type="Node2D" parent="."]

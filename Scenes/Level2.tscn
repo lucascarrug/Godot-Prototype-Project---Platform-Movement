@@ -11,6 +11,7 @@ size = Vector2(180, 56)
 [node name="Level2" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_llwst")]
+available_dash = false
 air_resistance = 1000
 
 [node name="Arrows" type="Node2D" parent="."]

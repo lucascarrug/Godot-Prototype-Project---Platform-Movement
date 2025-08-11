@@ -13,7 +13,7 @@ func on_physics_process(delta):
 	if player.is_falling():
 		state_machine.change_to(player.states.FALLING)
 	elif Input.is_action_just_pressed(player.controls.JUMP):
-		player.jump_buffer_start()
+		player.buffer_jump_start()
 	if player.jump_buffer and player.can_jump():
 		state_machine.change_to(player.states.JUMPING)
 	elif player.is_on_wall_only():
@@ -24,3 +24,5 @@ func on_physics_process(delta):
 func on_input(event):
 	if Input.is_action_just_pressed(player.controls.DASH) and player.can_dash:
 		state_machine.change_to(player.states.DASHING)
+	elif Input.is_action_just_pressed("reset"):
+		player.position = Vector2(0,0)

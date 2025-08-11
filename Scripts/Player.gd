@@ -22,25 +22,25 @@ var stats: PlayerStats = PlayerStats.new()
 @export var max_fall_speed := stats.MAX_FALL_SPEED
 
 @export_subgroup("Jump")
-# Max air jumps.
+# Maximum number of jumps the player can perform while in the air.
 @export var max_air_jumps := stats.MAX_AIR_JUMPS
-# Max distance (in pixels) that player can jump with a single jump.
+# Maximum height (in pixels) reached with a single jump.
 @export var jump_height := stats.JUMP_HEIGHT
-# Time it takes to reach the jump peak.
+# Time it takes for the player to reach the highest jump height.
 @export var jump_peak_time := stats.JUMP_PEAK_TIME
-# How much the jump is reduced by releasing the jump button.
+# How much the jump height is reduced when the jump button is released early.
 @export var jump_height_decrease := stats.JUMP_HEIGHT_DECREASE
-# Multiplier of velocity given to player when is walljumping.
+# Velocity multiplier applied to the player when performing a wall jump.
 @export var walljump_pushback_force := stats.WALLJUMP_PUSHBACK_FORCE
 
 @export_subgroup("Dash")
-# Activate / desactivate the ability to dash.
+# Enables or disables the ability to dash.
 @export var available_dash := true
-# Multiplier of velocity when player dashes.
+#Velocity multiplier when player dashes.
 @export var dash_force := stats.DASH_FORCE
-# Dashing time.
+# Dash duration.
 @export var dash_time := stats.DASH_TIME
-# Time to be able to recover the dash.
+# Time required to recover the dash ability after use.
 @export var dash_recover_time := stats.DASH_RECOVER_TIME
 
 @export_subgroup("Forces")
@@ -52,9 +52,9 @@ var stats: PlayerStats = PlayerStats.new()
 @export var floor_friction := stats.FLOOR_FRICTION
 
 @export_subgroup("Timers")
-# Margin of time to jump before player touches floor.
+# Time margin allowed to perform a jump slightly before touching the ground.
 @export var buffer_jump_timer_time := stats.BUFFER_JUMP_TIMER_TIME
-# Margin of time to jump after player leaves floor.
+# Time margin allowed to perform a jump shortly after leaving the ground.
 @export var coyote_time_timer_time := stats.COYOTE_TIME_TIMER_TIME
 
 ##### ANIMATION #####
@@ -141,36 +141,23 @@ func _physics_process(delta: float) -> void:
 ##### BASIC PHYSICS #####
 
 func idle(delta) -> void:
-	if velocity.x > 0.0:
-		if not is_on_floor():
-			velocity.x = max(velocity.x - air_resistance * delta, 0)
-		else:
-			velocity.x = max(velocity.x - floor_friction * delta, 0)
-	else:
-		if not is_on_floor():
-			velocity.x = min(velocity.x + air_resistance * delta, 0)
-		else:
-			velocity.x = min(velocity.x + floor_friction * delta, 0)
+	apply_friction(delta)
 
 func move_x(delta) -> void:
 	if is_walljumping:
 		return
 		
-	if Input.is_action_pressed(controls.RIGHT):
-		velocity.x = min(velocity.x + acceleration * delta, move_speed)
-	elif Input.is_action_pressed(controls.LEFT):
-		velocity.x = max(velocity.x - acceleration * delta, -move_speed)
+	accelerate(delta)
 
 func flip() -> void:
-	## If player changes move direction.
-	if (_is_facing_right and Input.is_action_pressed(controls.LEFT)) or (not _is_facing_right and Input.is_action_pressed(controls.RIGHT)):
+	if has_changed_x_direction():
 		scale.x *= -1
 		_is_facing_right = not _is_facing_right
 	
-	if velocity.x > 0.0:
-		walljump_pushback_force = abs(walljump_pushback_force)
-	elif velocity.x < 0.0:
-		walljump_pushback_force = -abs(walljump_pushback_force)
+	var direction = sign(velocity.x)
+	if direction == 0:
+		return
+	walljump_pushback_force = abs(walljump_pushback_force) * direction
 
 func jump() -> void:
 	if jump_buffer and (is_on_floor() or (coyote_time_jump and not has_jumped)):
@@ -190,7 +177,7 @@ func handle_gravity(delta) -> void:
 
 ##### FANCY PHYSICS #####
 
-func jump_buffer_start() -> void:
+func buffer_jump_start() -> void:
 	buffer_jump_timer.start()
 	jump_buffer = true
 	
@@ -243,6 +230,15 @@ func walljump() -> void:
 	await get_tree().create_timer(0.15).timeout
 	is_walljumping = false
 
+func apply_friction(delta):
+	var friction = floor_friction if is_on_floor() else air_resistance
+	velocity.x = move_toward(velocity.x, 0, friction * delta)
+	
+func accelerate(delta):
+	var dir = Input.get_axis(controls.LEFT, controls.RIGHT)
+	if dir != 0:
+		velocity.x = clamp(velocity.x + dir * acceleration * delta, -move_speed, move_speed)
+
 ##### SIGNALS #####
 
 func _on_buffer_jump_timer_timeout() -> void:
@@ -280,3 +276,7 @@ func can_jump():
 	return (jump_buffer and (is_on_floor() or (coyote_time_jump and not has_jumped))
 	or is_on_wall_only()
 	or jump_buffer and current_air_jumps < max_air_jumps)
+	
+func has_changed_x_direction():
+	return ((_is_facing_right and Input.is_action_pressed(controls.LEFT)) 
+	or (not _is_facing_right and Input.is_action_pressed(controls.RIGHT)))
