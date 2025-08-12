@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ivr7dejapvqj"]
+[gd_scene load_steps=11 format=3 uid="uid://ivr7dejapvqj"]
 
 [ext_resource type="PackedScene" uid="uid://vt21yl1tn0ce" path="res://Scenes/Player.tscn" id="1_331a3"]
 [ext_resource type="PackedScene" uid="uid://cmif3rdaf5l8e" path="res://Scenes/Floor.tscn" id="2_fv7k0"]
@@ -6,6 +6,9 @@
 [ext_resource type="Script" uid="uid://umiqqdxqn3b6" path="res://Scripts/Extras/TriggerArea2D.gd" id="3_fv7k0"]
 [ext_resource type="PackedScene" uid="uid://dojah23edujmd" path="res://Scenes/Checkpoint.tscn" id="5_glqn7"]
 [ext_resource type="Texture2D" uid="uid://clbigknbduos5" path="res://Assets/Sprites/arrow.png" id="6_1ktle"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rgu2x"]
+size = Vector2(86.5, 53)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_331a3"]
 size = Vector2(35, 53)
@@ -146,8 +149,8 @@ script = ExtResource("3_fv7k0")
 [node name="Area2D" type="Area2D" parent="JumpHeight"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpHeight/Area2D"]
-position = Vector2(180, -4)
-shape = SubResource("RectangleShape2D_331a3")
+position = Vector2(154.25, -4)
+shape = SubResource("RectangleShape2D_rgu2x")
 
 [node name="Slider" type="VSlider" parent="JumpHeight"]
 offset_left = 205.0
@@ -544,6 +547,7 @@ offset_left = -176.0
 offset_top = -55.0
 offset_right = -39.0
 offset_bottom = -1.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 11
 text = "CONTROLS: 
 - Move: Arrows or Joystick
@@ -551,6 +555,7 @@ text = "CONTROLS:
 - Reset: R or RB"
 
 [node name="Controls2" type="Label" parent="NumberLabels"]
+layout_mode = 0
 offset_left = 1009.0
 offset_top = -215.0
 offset_right = 1105.0
@@ -559,12 +564,23 @@ theme_override_font_sizes/font_size = 11
 text = "Dash: Space or RT"
 
 [node name="Controls3" type="Label" parent="NumberLabels"]
+layout_mode = 0
 offset_left = 1887.0
 offset_top = -288.0
 offset_right = 1983.0
 offset_bottom = -270.0
 theme_override_font_sizes/font_size = 11
 text = "Walljump: UpArrrows or A"
+
+[node name="Controls4" type="Label" parent="NumberLabels"]
+offset_left = 23.0
+offset_top = -55.0
+offset_right = 153.0
+offset_bottom = -20.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 9
+text = "The Player can modify
+his stats with the Sliders"
 
 [node name="Arrows" type="Node2D" parent="."]
 

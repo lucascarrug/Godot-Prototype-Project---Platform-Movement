@@ -40,14 +40,14 @@ scale = Vector2(0.226382, 0.226382)
 texture = ExtResource("2_q12u6")
 
 [node name="Arrow6" type="Sprite2D" parent="Arrows"]
-position = Vector2(1559, -7)
-rotation = 0.456379
+position = Vector2(1656, -15.9999)
+rotation = 0.875908
 scale = Vector2(0.158008, 0.158008)
 texture = ExtResource("2_q12u6")
 
 [node name="Arrow4" type="Sprite2D" parent="Arrows"]
-position = Vector2(820, -378)
-rotation = 0.370544
+position = Vector2(964, -428)
+rotation = 1.12998
 scale = Vector2(0.112786, 0.122366)
 texture = ExtResource("2_q12u6")
 
