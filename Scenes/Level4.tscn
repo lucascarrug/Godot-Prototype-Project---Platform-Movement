@@ -538,6 +538,34 @@ offset_right = 2840.0
 offset_bottom = -419.0
 text = "8"
 
+[node name="Controls1" type="Label" parent="NumberLabels"]
+layout_mode = 0
+offset_left = -176.0
+offset_top = -55.0
+offset_right = -39.0
+offset_bottom = -1.0
+theme_override_font_sizes/font_size = 11
+text = "CONTROLS: 
+- Move: Arrows or Joystick
+- Jump: UpArrow or A
+- Reset: R or RB"
+
+[node name="Controls2" type="Label" parent="NumberLabels"]
+offset_left = 1009.0
+offset_top = -215.0
+offset_right = 1105.0
+offset_bottom = -197.0
+theme_override_font_sizes/font_size = 11
+text = "Dash: Space or RT"
+
+[node name="Controls3" type="Label" parent="NumberLabels"]
+offset_left = 1887.0
+offset_top = -288.0
+offset_right = 1983.0
+offset_bottom = -270.0
+theme_override_font_sizes/font_size = 11
+text = "Walljump: UpArrrows or A"
+
 [node name="Arrows" type="Node2D" parent="."]
 
 [node name="Arrow" type="Sprite2D" parent="Arrows"]

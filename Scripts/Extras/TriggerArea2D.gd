@@ -64,11 +64,11 @@ func _on_slider_drag_ended(value_changed: bool) -> void:
 	$Slider.release_focus()
 
 func string_results() -> String:
-	var jump_height = " JumpHeight: " + str(player.jump_height)
-	var max_jump_distance = "\n MaxJumpDistance: " + str(player.max_jump_distance)
-	var jump_peak_time = "\n JumpPeakTime: " + str(player.jump_peak_time)
-	var dash = "\n Dash: " + str(player.available_dash)
-	var walljump_pushback = "\n WalljumpPushback: " + str(player.walljump_pushback_force)
-	var air_jump = "\n AirJump: " + str(player.max_air_jumps)
+	var jump_height = " -JumpHeight: " + str(player.jump_height)
+	var max_jump_distance = "\n -MaxJumpDistance: " + str(player.max_jump_distance)
+	var jump_peak_time = "\n -JumpPeakTime: " + str(player.jump_peak_time)
+	var dash = "\n -Dash: " + str(player.available_dash)
+	var walljump_pushback = "\n -WalljumpPushback: " + str(player.walljump_pushback_force)
+	var air_jump = "\n -AirJump: " + str(player.max_air_jumps)
 
 	return "Your player final states:\n" + jump_height + max_jump_distance + jump_peak_time + dash + walljump_pushback + air_jump
