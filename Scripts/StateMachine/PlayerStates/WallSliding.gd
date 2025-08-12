@@ -22,4 +22,4 @@ func on_physics_process(delta):
 
 func on_input(event):
 	if Input.is_action_just_pressed("reset"):
-		player.position = Vector2(0,0)
+		checkpoint_manager.return_player_to_last_checkpoint()

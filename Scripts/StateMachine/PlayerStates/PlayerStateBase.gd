@@ -7,5 +7,9 @@ var player: Player:
 	get:
 		return controller_node
 
+var checkpoint_manager: CheckpointManager:
+	get:
+		return get_tree().current_scene.get_node("CheckpointManager")
+
 func handle_gravity(delta):
 	player.handle_gravity(delta)

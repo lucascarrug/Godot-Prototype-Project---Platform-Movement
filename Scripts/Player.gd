@@ -107,16 +107,14 @@ var _is_facing_right := true
 
 func _ready() -> void:
 	# Set basic physics.
-	gravity = (2 * jump_height) / (jump_peak_time * jump_peak_time)
-	jump_speed = gravity * jump_peak_time
-	move_speed = max_jump_distance / (2 * jump_peak_time)
+	reset_physics()
 	
 	# Set timers.
 	dash_timer.wait_time = dash_time
 	dash_recover_timer.wait_time = dash_recover_time
 	buffer_jump_timer.wait_time = buffer_jump_timer_time
 	coyote_time_timer.wait_time = coyote_time_timer_time 
-	
+
 func _physics_process(delta: float) -> void:
 	## Coyote Time.
 	if was_on_floor and not is_on_floor():
@@ -126,6 +124,8 @@ func _physics_process(delta: float) -> void:
 	## Air jump.
 	if is_on_wall():
 		current_air_jumps = 0
+		if can_recover_dash:
+			if available_dash: can_dash = true
 	
 	if is_on_floor():
 		coyote_time_jump = true
@@ -280,3 +280,8 @@ func can_jump():
 func has_changed_x_direction():
 	return ((_is_facing_right and Input.is_action_pressed(controls.LEFT)) 
 	or (not _is_facing_right and Input.is_action_pressed(controls.RIGHT)))
+
+func reset_physics() -> void:
+	gravity = (2 * jump_height) / (jump_peak_time * jump_peak_time)
+	jump_speed = gravity * jump_peak_time
+	move_speed = max_jump_distance / (2 * jump_peak_time)

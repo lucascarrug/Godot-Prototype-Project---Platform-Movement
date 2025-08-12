@@ -1,0 +1,599 @@
+[gd_scene load_steps=10 format=3 uid="uid://ivr7dejapvqj"]
+
+[ext_resource type="PackedScene" uid="uid://vt21yl1tn0ce" path="res://Scenes/Player.tscn" id="1_331a3"]
+[ext_resource type="PackedScene" uid="uid://cmif3rdaf5l8e" path="res://Scenes/Floor.tscn" id="2_fv7k0"]
+[ext_resource type="Script" uid="uid://bsdcu7qub0bsg" path="res://Scripts/Extras/CheckpointManager.gd" id="3_4w2qb"]
+[ext_resource type="Script" uid="uid://umiqqdxqn3b6" path="res://Scripts/Extras/TriggerArea2D.gd" id="3_fv7k0"]
+[ext_resource type="PackedScene" uid="uid://dojah23edujmd" path="res://Scenes/Checkpoint.tscn" id="5_glqn7"]
+[ext_resource type="Texture2D" uid="uid://clbigknbduos5" path="res://Assets/Sprites/arrow.png" id="6_1ktle"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_331a3"]
+size = Vector2(35, 53)
+
+[sub_resource type="GDScript" id="GDScript_fv7k0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1ktle"]
+size = Vector2(181, 53)
+
+[node name="Level4" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_331a3")]
+position = Vector2(-35, 2)
+max_jump_distance = 100.0
+fall_speed_increase = 2.0
+max_air_jumps = 0
+jump_height = 50
+available_dash = false
+dash_time = 0.2
+
+[node name="CheckpointManager" type="Node" parent="."]
+script = ExtResource("3_4w2qb")
+
+[node name="Checkpoint" parent="CheckpointManager" instance=ExtResource("5_glqn7")]
+position = Vector2(226, -94)
+
+[node name="Checkpoint2" parent="CheckpointManager" instance=ExtResource("5_glqn7")]
+position = Vector2(452, -88)
+
+[node name="Checkpoint3" parent="CheckpointManager" instance=ExtResource("5_glqn7")]
+position = Vector2(920, -143)
+
+[node name="Checkpoint4" parent="CheckpointManager" instance=ExtResource("5_glqn7")]
+position = Vector2(1332, -148)
+
+[node name="Checkpoint5" parent="CheckpointManager" instance=ExtResource("5_glqn7")]
+position = Vector2(1778, -212)
+
+[node name="Checkpoint6" parent="CheckpointManager" instance=ExtResource("5_glqn7")]
+position = Vector2(2415, -364)
+
+[node name="Checkpoint7" parent="CheckpointManager" instance=ExtResource("5_glqn7")]
+position = Vector2(2783, -366)
+
+[node name="Floors" type="Node2D" parent="."]
+
+[node name="Floor" parent="Floors" instance=ExtResource("2_fv7k0")]
+position = Vector2(0, 30)
+
+[node name="Floor2" parent="Floors" instance=ExtResource("2_fv7k0")]
+position = Vector2(153, 30)
+
+[node name="Floor3" parent="Floors" instance=ExtResource("2_fv7k0")]
+position = Vector2(253, -96)
+
+[node name="Floor4" parent="Floors" instance=ExtResource("2_fv7k0")]
+position = Vector2(469, -94)
+
+[node name="Floor5" parent="Floors" instance=ExtResource("2_fv7k0")]
+position = Vector2(600, -94)
+scale = Vector2(0.1, 1)
+
+[node name="Floor6" parent="Floors" instance=ExtResource("2_fv7k0")]
+position = Vector2(669, -123)
+scale = Vector2(0.1, 1)
+
+[node name="Floor7" parent="Floors" instance=ExtResource("2_fv7k0")]
+position = Vector2(778, -150)
+scale = Vector2(0.1, 1)
+
+[node name="Floor8" parent="Floors" instance=ExtResource("2_fv7k0")]
+position = Vector2(957, -149)
+
+[node name="Floor9" parent="Floors" instance=ExtResource("2_fv7k0")]
+position = Vector2(1366, -145)
+
+[node name="Floor10" parent="Floors" instance=ExtResource("2_fv7k0")]
+position = Vector2(1812, -218)
+
+[node name="Floor11" parent="Floors" instance=ExtResource("2_fv7k0")]
+position = Vector2(1850, -158)
+rotation = 1.57079
+
+[node name="Floor12" parent="Floors" instance=ExtResource("2_fv7k0")]
+position = Vector2(2410, -157)
+rotation = 1.57079
+
+[node name="Floor13" parent="Floors" instance=ExtResource("2_fv7k0")]
+position = Vector2(2410, -245)
+rotation = 1.57079
+
+[node name="Floor14" parent="Floors" instance=ExtResource("2_fv7k0")]
+position = Vector2(2410, -332)
+rotation = 1.57079
+
+[node name="Floor15" parent="Floors" instance=ExtResource("2_fv7k0")]
+position = Vector2(2459, -370)
+
+[node name="Floor16" parent="Floors" instance=ExtResource("2_fv7k0")]
+position = Vector2(2582, -447)
+rotation = 1.57079
+
+[node name="Floor17" parent="Floors" instance=ExtResource("2_fv7k0")]
+position = Vector2(2582, -797)
+rotation = 1.57079
+
+[node name="Floor18" parent="Floors" instance=ExtResource("2_fv7k0")]
+position = Vector2(2582, -884)
+rotation = 1.57079
+
+[node name="Floor19" parent="Floors" instance=ExtResource("2_fv7k0")]
+position = Vector2(2535, -922)
+
+[node name="Floor20" parent="Floors" instance=ExtResource("2_fv7k0")]
+position = Vector2(2450, -922)
+
+[node name="Floor21" parent="Floors" instance=ExtResource("2_fv7k0")]
+position = Vector2(2818, -367)
+
+[node name="Floor22" parent="Floors" instance=ExtResource("2_fv7k0")]
+position = Vector2(2582, -534)
+rotation = 1.57079
+
+[node name="Floor23" parent="Floors" instance=ExtResource("2_fv7k0")]
+position = Vector2(2582, -622)
+rotation = 1.57079
+
+[node name="Floor24" parent="Floors" instance=ExtResource("2_fv7k0")]
+position = Vector2(2582, -709)
+rotation = 1.57079
+
+[node name="Floor25" parent="Floors" instance=ExtResource("2_fv7k0")]
+position = Vector2(2906, -367)
+
+[node name="JumpHeight" type="Node2D" parent="."]
+script = ExtResource("3_fv7k0")
+
+[node name="Area2D" type="Area2D" parent="JumpHeight"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="JumpHeight/Area2D"]
+position = Vector2(180, -4)
+shape = SubResource("RectangleShape2D_331a3")
+
+[node name="Slider" type="VSlider" parent="JumpHeight"]
+offset_left = 205.0
+offset_top = -32.0
+offset_right = 221.0
+offset_bottom = 28.0
+max_value = 200.0
+step = 2.0
+
+[node name="Label" type="Label" parent="JumpHeight/Slider"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.125
+anchor_top = 0.3
+anchor_right = 4.125
+anchor_bottom = 0.492
+offset_left = 1.0
+offset_right = 49.0
+offset_bottom = 11.48
+scale = Vector2(0.5, 0.5)
+text = "Jump Height"
+
+[node name="MaxJumpDistance" type="Node2D" parent="."]
+position = Vector2(100, -127)
+script = ExtResource("3_fv7k0")
+
+[node name="Area2D" type="Area2D" parent="MaxJumpDistance"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MaxJumpDistance/Area2D"]
+position = Vector2(180, -4)
+shape = SubResource("RectangleShape2D_331a3")
+
+[node name="Slider" type="VSlider" parent="MaxJumpDistance"]
+offset_left = 205.0
+offset_top = -32.0
+offset_right = 221.0
+offset_bottom = 28.0
+min_value = 50.0
+max_value = 300.0
+value = 50.0
+
+[node name="Label" type="Label" parent="MaxJumpDistance/Slider"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.125
+anchor_top = 0.3
+anchor_right = 4.125
+anchor_bottom = 0.492
+offset_left = 1.0
+offset_right = 49.0
+offset_bottom = 11.48
+scale = Vector2(0.5, 0.5)
+text = "Max Jump Distance"
+
+[node name="JumpPeakTime" type="Node2D" parent="."]
+position = Vector2(317, -125)
+script = ExtResource("3_fv7k0")
+
+[node name="Area2D" type="Area2D" parent="JumpPeakTime"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPeakTime/Area2D"]
+position = Vector2(180, -4)
+shape = SubResource("RectangleShape2D_331a3")
+
+[node name="Slider" type="VSlider" parent="JumpPeakTime"]
+offset_left = 205.0
+offset_top = -32.0
+offset_right = 221.0
+offset_bottom = 28.0
+min_value = 0.1
+max_value = 2.0
+step = 0.1
+value = 0.1
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="JumpPeakTime/Slider"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.125
+anchor_top = 0.3
+anchor_right = 4.125
+anchor_bottom = 0.492
+offset_left = 1.0
+offset_right = 49.0
+offset_bottom = 11.48
+scale = Vector2(0.5, 0.5)
+text = "Jump Peak Time"
+metadata/_edit_use_anchors_ = true
+
+[node name="JumpPeakTime2" type="Node2D" parent="."]
+position = Vector2(612, -183)
+script = ExtResource("3_fv7k0")
+
+[node name="Area2D" type="Area2D" parent="JumpPeakTime2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="JumpPeakTime2/Area2D"]
+position = Vector2(180, -4)
+shape = SubResource("RectangleShape2D_331a3")
+
+[node name="Slider" type="VSlider" parent="JumpPeakTime2"]
+offset_left = 205.0
+offset_top = -32.0
+offset_right = 221.0
+offset_bottom = 28.0
+min_value = 0.1
+max_value = 2.0
+step = 0.1
+value = 0.1
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="JumpPeakTime2/Slider"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.125
+anchor_top = 0.3
+anchor_right = 4.125
+anchor_bottom = 0.492
+offset_left = 1.0
+offset_right = 49.0
+offset_bottom = 11.48
+scale = Vector2(0.5, 0.5)
+text = "Jump Peak Time"
+metadata/_edit_use_anchors_ = true
+
+[node name="Dash" type="Node2D" parent="."]
+position = Vector2(802, -180)
+script = ExtResource("3_fv7k0")
+
+[node name="Area2D" type="Area2D" parent="Dash"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Dash/Area2D"]
+position = Vector2(180, -4)
+shape = SubResource("RectangleShape2D_331a3")
+
+[node name="Slider" type="VSlider" parent="Dash"]
+offset_left = 207.0
+offset_top = -6.0
+offset_right = 223.0
+offset_bottom = 24.0
+max_value = 1.0
+script = SubResource("GDScript_fv7k0")
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="Dash/Slider"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.125
+anchor_top = 0.3
+anchor_right = 4.125
+anchor_bottom = 0.492
+offset_left = 1.0
+offset_right = 49.0
+offset_bottom = 11.48
+scale = Vector2(0.5, 0.5)
+text = "Enable Dash"
+metadata/_edit_use_anchors_ = true
+
+[node name="WalljumpPushback" type="Node2D" parent="."]
+position = Vector2(1659, -249)
+script = ExtResource("3_fv7k0")
+
+[node name="Area2D" type="Area2D" parent="WalljumpPushback"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WalljumpPushback/Area2D"]
+position = Vector2(180, -4)
+shape = SubResource("RectangleShape2D_331a3")
+
+[node name="Slider" type="VSlider" parent="WalljumpPushback"]
+offset_left = 207.0
+offset_top = -31.0
+offset_right = 223.0
+offset_bottom = 29.0
+min_value = 1.0
+max_value = 7.0
+value = 1.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="WalljumpPushback/Slider"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.125
+anchor_top = 0.3
+anchor_right = 4.125
+anchor_bottom = 0.492
+offset_left = 1.0
+offset_right = 49.0
+offset_bottom = 11.48
+scale = Vector2(0.5, 0.5)
+text = "Walljump Pushback"
+metadata/_edit_use_anchors_ = true
+
+[node name="MaxJumpDistance2" type="Node2D" parent="."]
+position = Vector2(1211, -176)
+script = ExtResource("3_fv7k0")
+
+[node name="Area2D" type="Area2D" parent="MaxJumpDistance2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MaxJumpDistance2/Area2D"]
+position = Vector2(180, -4)
+shape = SubResource("RectangleShape2D_331a3")
+
+[node name="Slider" type="VSlider" parent="MaxJumpDistance2"]
+offset_left = 205.0
+offset_top = -32.0
+offset_right = 221.0
+offset_bottom = 28.0
+min_value = 50.0
+max_value = 300.0
+value = 50.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="MaxJumpDistance2/Slider"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.125
+anchor_top = 0.3
+anchor_right = 4.125
+anchor_bottom = 0.492
+offset_left = 1.0
+offset_right = 49.0
+offset_bottom = 11.48
+scale = Vector2(0.5, 0.5)
+text = "Max Jump Distance"
+metadata/_edit_use_anchors_ = true
+
+[node name="AirJump" type="Node2D" parent="."]
+position = Vector2(2307, -401)
+script = ExtResource("3_fv7k0")
+
+[node name="Area2D" type="Area2D" parent="AirJump"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AirJump/Area2D"]
+position = Vector2(180, -4)
+shape = SubResource("RectangleShape2D_331a3")
+
+[node name="Slider" type="VSlider" parent="AirJump"]
+offset_left = 205.0
+offset_top = -32.0
+offset_right = 221.0
+offset_bottom = 28.0
+max_value = 2.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="AirJump/Slider"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.125
+anchor_top = 0.3
+anchor_right = 4.125
+anchor_bottom = 0.492
+offset_left = 1.0
+offset_right = 49.0
+offset_bottom = 11.48
+scale = Vector2(0.5, 0.5)
+text = "Air jumps"
+metadata/_edit_use_anchors_ = true
+
+[node name="Secret" type="Node2D" parent="."]
+position = Vector2(2305, -693)
+script = ExtResource("3_fv7k0")
+
+[node name="Area2D" type="Area2D" parent="Secret"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Secret/Area2D"]
+position = Vector2(190.5, -266)
+shape = SubResource("RectangleShape2D_1ktle")
+
+[node name="Slider" type="VSlider" parent="Secret"]
+offset_left = 205.0
+offset_top = -32.0
+offset_right = 221.0
+offset_bottom = 28.0
+max_value = 2.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="Secret/Slider"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.125
+anchor_top = 0.3
+anchor_right = 4.125
+anchor_bottom = 0.492
+offset_left = 1.0
+offset_right = 49.0
+offset_bottom = 11.48
+scale = Vector2(0.5, 0.5)
+text = "Air jumps"
+metadata/_edit_use_anchors_ = true
+
+[node name="Results" type="Node2D" parent="."]
+position = Vector2(2673, -135)
+script = ExtResource("3_fv7k0")
+
+[node name="Area2D" type="Area2D" parent="Results"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Results/Area2D"]
+position = Vector2(190.5, -266)
+shape = SubResource("RectangleShape2D_1ktle")
+
+[node name="Slider" type="VSlider" parent="Results"]
+offset_left = 205.0
+offset_top = -32.0
+offset_right = 221.0
+offset_bottom = 28.0
+max_value = 2.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="Results/Slider"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.125
+anchor_top = 0.3
+anchor_right = 4.125
+anchor_bottom = 0.492
+offset_left = 1.0
+offset_right = 49.0
+offset_bottom = 11.48
+scale = Vector2(0.5, 0.5)
+text = "Air jumps"
+metadata/_edit_use_anchors_ = true
+
+[node name="NumberLabels" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="1" type="Label" parent="NumberLabels"]
+layout_mode = 0
+offset_left = 12.0
+offset_right = 52.0
+offset_bottom = 23.0
+text = "1"
+
+[node name="2" type="Label" parent="NumberLabels"]
+layout_mode = 0
+offset_left = 262.0
+offset_top = -190.0
+offset_right = 302.0
+offset_bottom = -167.0
+text = "2"
+
+[node name="3" type="Label" parent="NumberLabels"]
+layout_mode = 0
+offset_left = 485.0
+offset_top = -187.0
+offset_right = 525.0
+offset_bottom = -164.0
+text = "3"
+
+[node name="4" type="Label" parent="NumberLabels"]
+layout_mode = 0
+offset_left = 970.0
+offset_top = -235.0
+offset_right = 1010.0
+offset_bottom = -212.0
+text = "4"
+
+[node name="5" type="Label" parent="NumberLabels"]
+layout_mode = 0
+offset_left = 1357.0
+offset_top = -223.0
+offset_right = 1397.0
+offset_bottom = -200.0
+text = "5"
+
+[node name="6" type="Label" parent="NumberLabels"]
+layout_mode = 0
+offset_left = 1805.0
+offset_top = -298.0
+offset_right = 1845.0
+offset_bottom = -275.0
+text = "6"
+
+[node name="7" type="Label" parent="NumberLabels"]
+layout_mode = 0
+offset_left = 2451.0
+offset_top = -435.0
+offset_right = 2491.0
+offset_bottom = -412.0
+text = "7"
+
+[node name="8" type="Label" parent="NumberLabels"]
+layout_mode = 0
+offset_left = 2800.0
+offset_top = -442.0
+offset_right = 2840.0
+offset_bottom = -419.0
+text = "8"
+
+[node name="Arrows" type="Node2D" parent="."]
+
+[node name="Arrow" type="Sprite2D" parent="Arrows"]
+position = Vector2(190, -62)
+rotation = -1.57044
+scale = Vector2(0.0625957, 0.0625957)
+texture = ExtResource("6_1ktle")
+
+[node name="Arrow2" type="Sprite2D" parent="Arrows"]
+position = Vector2(1164, -192)
+scale = Vector2(0.0625957, 0.0625957)
+texture = ExtResource("6_1ktle")
+
+[node name="Arrow3" type="Sprite2D" parent="Arrows"]
+position = Vector2(1578, -207)
+rotation = -0.321245
+scale = Vector2(0.0625957, 0.0625957)
+texture = ExtResource("6_1ktle")
+
+[node name="Arrow4" type="Sprite2D" parent="Arrows"]
+position = Vector2(1996, -198)
+scale = Vector2(0.0625957, 0.0625957)
+texture = ExtResource("6_1ktle")
+
+[node name="Arrow5" type="Sprite2D" parent="Arrows"]
+position = Vector2(2242, -198)
+scale = Vector2(0.0625957, 0.0625957)
+texture = ExtResource("6_1ktle")
+
+[connection signal="body_entered" from="JumpHeight/Area2D" to="JumpHeight" method="_on_area_2d_body_entered"]
+[connection signal="drag_ended" from="JumpHeight/Slider" to="JumpHeight" method="_on_slider_drag_ended"]
+[connection signal="value_changed" from="JumpHeight/Slider" to="JumpHeight" method="_on_slider_value_changed"]
+[connection signal="body_entered" from="MaxJumpDistance/Area2D" to="MaxJumpDistance" method="_on_area_2d_body_entered"]
+[connection signal="drag_ended" from="MaxJumpDistance/Slider" to="MaxJumpDistance" method="_on_slider_drag_ended"]
+[connection signal="value_changed" from="MaxJumpDistance/Slider" to="MaxJumpDistance" method="_on_slider_value_changed"]
+[connection signal="body_entered" from="JumpPeakTime/Area2D" to="JumpPeakTime" method="_on_area_2d_body_entered"]
+[connection signal="drag_ended" from="JumpPeakTime/Slider" to="JumpPeakTime" method="_on_slider_drag_ended"]
+[connection signal="value_changed" from="JumpPeakTime/Slider" to="JumpPeakTime" method="_on_slider_value_changed"]
+[connection signal="body_entered" from="JumpPeakTime2/Area2D" to="JumpPeakTime2" method="_on_area_2d_body_entered"]
+[connection signal="drag_ended" from="JumpPeakTime2/Slider" to="JumpPeakTime2" method="_on_slider_drag_ended"]
+[connection signal="value_changed" from="JumpPeakTime2/Slider" to="JumpPeakTime2" method="_on_slider_value_changed"]
+[connection signal="body_entered" from="Dash/Area2D" to="Dash" method="_on_area_2d_body_entered"]
+[connection signal="drag_ended" from="Dash/Slider" to="Dash" method="_on_slider_drag_ended"]
+[connection signal="value_changed" from="Dash/Slider" to="Dash" method="_on_slider_value_changed"]
+[connection signal="body_entered" from="WalljumpPushback/Area2D" to="WalljumpPushback" method="_on_area_2d_body_entered"]
+[connection signal="drag_ended" from="WalljumpPushback/Slider" to="WalljumpPushback" method="_on_slider_drag_ended"]
+[connection signal="value_changed" from="WalljumpPushback/Slider" to="WalljumpPushback" method="_on_slider_value_changed"]
+[connection signal="body_entered" from="MaxJumpDistance2/Area2D" to="MaxJumpDistance2" method="_on_area_2d_body_entered"]
+[connection signal="drag_ended" from="MaxJumpDistance2/Slider" to="MaxJumpDistance2" method="_on_slider_drag_ended"]
+[connection signal="value_changed" from="MaxJumpDistance2/Slider" to="MaxJumpDistance2" method="_on_slider_value_changed"]
+[connection signal="body_entered" from="AirJump/Area2D" to="AirJump" method="_on_area_2d_body_entered"]
+[connection signal="drag_ended" from="AirJump/Slider" to="AirJump" method="_on_slider_drag_ended"]
+[connection signal="value_changed" from="AirJump/Slider" to="AirJump" method="_on_slider_value_changed"]
+[connection signal="body_entered" from="Secret/Area2D" to="Secret" method="_on_area_2d_body_entered"]
+[connection signal="drag_ended" from="Secret/Slider" to="AirJump" method="_on_slider_drag_ended"]
+[connection signal="value_changed" from="Secret/Slider" to="AirJump" method="_on_slider_value_changed"]
+[connection signal="body_entered" from="Results/Area2D" to="Results" method="_on_area_2d_body_entered"]
+[connection signal="drag_ended" from="Results/Slider" to="AirJump" method="_on_slider_drag_ended"]
+[connection signal="value_changed" from="Results/Slider" to="AirJump" method="_on_slider_value_changed"]

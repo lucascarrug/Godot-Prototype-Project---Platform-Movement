@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bqav57lu2j54u"]
+[gd_scene load_steps=6 format=3 uid="uid://bqav57lu2j54u"]
 
 [ext_resource type="PackedScene" uid="uid://vt21yl1tn0ce" path="res://Scenes/Player.tscn" id="1_2llne"]
 [ext_resource type="Texture2D" uid="uid://clbigknbduos5" path="res://Assets/Sprites/arrow.png" id="2_q12u6"]
+[ext_resource type="Script" uid="uid://bsdcu7qub0bsg" path="res://Scripts/Extras/CheckpointManager.gd" id="3_joc8x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mc20k"]
 size = Vector2(180, 56)
@@ -156,3 +157,7 @@ offset_top = -55.0
 offset_right = 90.0
 offset_bottom = -32.0
 text = "SPACE LEVEL"
+
+[node name="CheckpointManager" type="Node" parent="."]
+script = ExtResource("3_joc8x")
+metadata/_custom_type_script = "uid://bsdcu7qub0bsg"
